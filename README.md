@@ -22,16 +22,14 @@ omit, and re-evaluates the headline comparisons subject-independently over five 
 | `configs/` | YAML configs for every trained configuration (incl. `ablation/`, `audit/`, `easy/` variants) |
 | `experiments/` | **Metrics of all runs in the paper** (`multiseed_summary.json`, per-class F1 CSVs, training logs). Model checkpoints are stripped for size |
 | `results/` | Aggregated analysis outputs (per-class substitutability tables, gate statistics) |
+| `scripts/rebuild/` | `build_wifi_proper.py` rebuilds signed / amplitude / Doppler CSI **from the raw complex MASD release** and recovers subject identifiers (auto-downloads the raw files); `build_aligned.py` builds the aligned proper-WiFi + IMU dataset |
+| `scripts/train/` | Training/evaluation runners: `run_experiment.py` + `run_multiseed.py` (window-level protocol, Table 1), `run_wifirb.py` + `run_aligned.py` + shell wrappers (subject-independent re-test, Table 2), stats-MLP and dropout-audit runs |
+| `scripts/analysis/` | Fusion diagnostics D1–D3 (`analyze_gates.py`, `ablation_zero_wifi.py`, `eval_imu_from_gmu.py`, `analyze_gate_trajectory.py`) and the per-class boundary / stats-vs-deep / per-channel analyses |
+| `scripts/checks/` | Pipeline sanity checks (incl. the pilot overfitting test referenced in Methods) |
 | `tests/` | Unit tests for data, models, metrics |
-| `build_wifi_proper.py` | Rebuilds signed / amplitude / Doppler CSI **from the raw complex MASD release** and recovers subject identifiers (auto-downloads the raw files) |
-| `build_aligned.py` | Builds the aligned proper-WiFi + IMU dataset for the subject-independent fusion re-test |
-| `run_experiment.py`, `run_multiseed.py` | Single-config and n-seed training/evaluation (window-level protocol, Table 1) |
-| `run_wifirb.py`, `run_aligned.py`, `run_arch_amp.sh`, `run_phase2.sh` | Subject-independent re-test on the rebuild (Table 2) |
-| `run_stats_experiments.py`, `run_corrected_experiments.py`, `run_overnight.py` | Feature-MLP (SQ4) and dropout-audit runs |
-| `analyze_gates.py`, `ablation_zero_wifi.py`, `eval_imu_from_gmu.py`, `analyze_gate_trajectory.py` | Fusion diagnostics D1–D3 (gate closure, WiFi-invariance counterfactual, modality dropout / encoder extraction) |
-| `analyze_substitutability.py`, `analyze_stats_perclass.py`, `analyze_perchannel_multiseed.py`, `analyze_cotraining_perclass.py`, `diagnostic_perchannel.py`, `make_perchannel_compare.py` | Per-class boundary, stats-vs-deep, and per-channel gate analyses |
 | `make_figs.py` | Regenerates the four paper figures **from the committed metrics — no GPU or dataset needed** |
-| `sanity_overfit.py`, `smoke_test_a0.py`, `smoke_test_c.py` | Pipeline sanity checks (incl. the pilot overfitting test referenced in Methods) |
+
+All commands below are run from the repository root.
 
 ## Setup
 
@@ -68,24 +66,25 @@ train partition only.
 python make_figs.py
 
 # Table 1 — window-level multi-seed runs, e.g.:
-python run_multiseed.py --num-seeds 5 --configs configs/imu_corrected.yaml configs/gmu_corrected.yaml
+python scripts/train/run_multiseed.py --num-seeds 5 --configs configs/imu_corrected.yaml configs/gmu_corrected.yaml
 
 # Table 2 — from-raw rebuild, then subject-independent runs:
-python build_wifi_proper.py --out-dir data/wifirb --window 500 --stride 250
-python run_wifirb.py                  # WiFi-alone by representation/backbone
-python build_aligned.py               # aligned proper-WiFi + IMU dataset
-python run_aligned.py                 # fusion re-test (IMU control reproduces 0.6923)
+python scripts/rebuild/build_wifi_proper.py --out-dir data/wifirb --window 500 --stride 250
+python scripts/train/run_wifirb.py    # WiFi-alone by representation/backbone
+python scripts/rebuild/build_aligned.py   # aligned proper-WiFi + IMU dataset
+python scripts/train/run_aligned.py   # fusion re-test (IMU control reproduces 0.6923)
 
 # Fusion diagnostics (D1–D3) and per-class analyses:
-python analyze_gates.py
-python ablation_zero_wifi.py
-python eval_imu_from_gmu.py
-python analyze_substitutability.py
-python analyze_stats_perclass.py
+python scripts/analysis/analyze_gates.py
+python scripts/analysis/ablation_zero_wifi.py
+python scripts/analysis/eval_imu_from_gmu.py
+python scripts/analysis/analyze_substitutability.py
+python scripts/analysis/analyze_stats_perclass.py
 ```
 
-Each script's docstring documents its options; the shell scripts (`run_arch_amp.sh`,
-`run_phase2.sh`) record the exact sequences used for the paper's GPU runs.
+Each script's docstring documents its options; the shell scripts
+(`scripts/train/run_arch_amp.sh`, `scripts/train/run_phase2.sh`) record the exact
+sequences used for the paper's GPU runs.
 
 ## Citation
 

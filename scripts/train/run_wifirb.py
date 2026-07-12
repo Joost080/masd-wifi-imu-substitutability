@@ -8,18 +8,21 @@ a --loso flag does full leave-one-subject-out.
 
 Examples (run on the server):
     # amp vs signed vs doppler, DeepConvLSTM, subject-held-out, 5 seeds:
-    python run_wifirb.py --rep amp     --model deepconvlstm --num-seeds 5
-    python run_wifirb.py --rep signed  --model deepconvlstm --num-seeds 5
-    python run_wifirb.py --rep doppler --model deepconvlstm --num-seeds 5
+    python scripts/train/run_wifirb.py --rep amp     --model deepconvlstm --num-seeds 5
+    python scripts/train/run_wifirb.py --rep signed  --model deepconvlstm --num-seeds 5
+    python scripts/train/run_wifirb.py --rep doppler --model deepconvlstm --num-seeds 5
     # backbone sweep on amplitude (subject-held-out; pairs with the DeepConvLSTM
     # amp/doppler rows in the paper's subject-independent table):
-    python run_wifirb.py --rep amp --model resnet1d     --num-seeds 5
-    python run_wifirb.py --rep amp --model csi_resnet2d --num-seeds 5
+    python scripts/train/run_wifirb.py --rep amp --model resnet1d     --num-seeds 5
+    python scripts/train/run_wifirb.py --rep amp --model csi_resnet2d --num-seeds 5
     # Easy 5-class only (classes 0-4):  add --easy
     # leave-one-subject-out:            add --loso  (19x cost; use --num-seeds 1)
 
 Writes experiments/wifirb_<rep>_<model>[_easy][_loso]/multiseed_summary.json + per-class F1.
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse, csv, json, random
 from pathlib import Path
 import numpy as np

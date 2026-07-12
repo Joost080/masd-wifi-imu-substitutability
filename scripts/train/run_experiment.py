@@ -2,10 +2,13 @@
 Run a single training experiment from a YAML config.
 
 Usage:
-    python run_experiment.py configs/wifi_baseline.yaml
-    python run_experiment.py configs/late_fusion.yaml
+    python scripts/train/run_experiment.py configs/wifi_baseline.yaml
+    python scripts/train/run_experiment.py configs/late_fusion.yaml
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import yaml
 import torch

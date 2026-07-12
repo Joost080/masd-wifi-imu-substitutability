@@ -13,7 +13,7 @@ channels (matches our existing IMU). Validate by training IMU-alone on X_imu and
 checking it reproduces our ~0.69-0.80 Hard number before trusting the fusion result.
 
 Run on the server (reuses data/wifirb/raw_cache for the WiFi R/I; downloads phone.tab):
-    python build_aligned.py --out-dir data/aligned --window 500 --stride 250 --imu-win 150
+    python scripts/rebuild/build_aligned.py --out-dir data/aligned --window 500 --stride 250 --imu-win 150
 """
 import argparse, json
 from collections import defaultdict

@@ -9,21 +9,21 @@
 # DeepConvLSTM amp/doppler rows in the paper's subject-independent table
 # (DeepConvLSTM amp = .074 Hard / .425 Easy). Report them as extra rows there.
 #
-# Four jobs (2 per GPU), balanced heavy/light. Run inside tmux:  bash run_arch_amp.sh
+# Four jobs (2 per GPU), balanced heavy/light. Run inside tmux:  bash scripts/train/run_arch_amp.sh
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../.."
 
 echo "=== WiFi amplitude backbone sweep on 2 GPUs (n=5, subject-held-out) ==="
 
 gpu0() {
   export CUDA_VISIBLE_DEVICES=0
-  python run_wifirb.py --rep amp --model csi_resnet2d        --num-seeds 5   # 2D-CNN  Hard (heaviest)
-  python run_wifirb.py --rep amp --model resnet1d    --easy  --num-seeds 5   # 1D-ResNet Easy (lightest)
+  python scripts/train/run_wifirb.py --rep amp --model csi_resnet2d        --num-seeds 5   # 2D-CNN  Hard (heaviest)
+  python scripts/train/run_wifirb.py --rep amp --model resnet1d    --easy  --num-seeds 5   # 1D-ResNet Easy (lightest)
 }
 gpu1() {
   export CUDA_VISIBLE_DEVICES=1
-  python run_wifirb.py --rep amp --model csi_resnet2d --easy --num-seeds 5   # 2D-CNN  Easy
-  python run_wifirb.py --rep amp --model resnet1d           --num-seeds 5    # 1D-ResNet Hard
+  python scripts/train/run_wifirb.py --rep amp --model csi_resnet2d --easy --num-seeds 5   # 2D-CNN  Easy
+  python scripts/train/run_wifirb.py --rep amp --model resnet1d           --num-seeds 5    # 1D-ResNet Hard
 }
 
 gpu0 > logs_arch_amp_gpu0.txt 2>&1 &

@@ -4,7 +4,7 @@ figure for the presentation. Reads the existing per-channel diagnostic PNGs
 in results/ and writes a composite to results/perchannel_compare_hard_vs_easy.{pdf,png}.
 
 Usage:
-    python make_perchannel_compare.py
+    python scripts/analysis/make_perchannel_compare.py
 """
 
 from pathlib import Path

@@ -33,7 +33,7 @@ Inputs are the SAME wifi-f1 / imu-f1 baselines as diagnostic_perchannel.py
 (per-class F1 from the single-modality audit runs).
 
 Usage (from research/):
-    python analyze_perchannel_multiseed.py \
+    python scripts/analysis/analyze_perchannel_multiseed.py \
         configs/audit/gmu_perchannel.yaml \
         --wifi-f1 experiments/audit_dropout_wifi/seed_0/test_per_class_f1.csv \
         --imu-f1  experiments/audit_dropout_imu/seed_0/test_per_class_f1.csv \
@@ -45,6 +45,9 @@ Outputs (under results/):
     perchannel_multiseed_category_counts.csv
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json

@@ -30,14 +30,17 @@ aggregate summary + per-class F1 in the same layout as run_multiseed.py so
 analyze_stats_perclass.py and other downstream tools can read it.
 
 Usage:
-    python eval_imu_from_gmu.py configs/audit/gmu_fusion.yaml --num-seeds 5
-    python eval_imu_from_gmu.py configs/audit/easy_gmu_fusion.yaml --num-seeds 5
+    python scripts/analysis/eval_imu_from_gmu.py configs/audit/gmu_fusion.yaml --num-seeds 5
+    python scripts/analysis/eval_imu_from_gmu.py configs/audit/easy_gmu_fusion.yaml --num-seeds 5
 
 Outputs (under experiments/<gmu_exp>/imu_from_gmu/):
     seed_<n>/test_metrics.json, test_per_class_f1.csv, test_confusion_matrix.npy
     cotraining_summary.json, cotraining_summary.csv, cotraining_per_class_f1.csv
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json

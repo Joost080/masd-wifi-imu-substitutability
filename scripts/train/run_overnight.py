@@ -8,24 +8,27 @@ time-first (LPT), so the heavy ResNet-WiFi runs are spread across GPUs instead o
 piling onto one. After training, a cheap eval-only pass writes each config's
 multiseed_summary.*.
 
-Run on the uni server after `git pull` AND after `python smoke_test_a0.py` passes.
+Run on the uni server after `git pull` AND after `python scripts/checks/smoke_test_a0.py` passes.
 
     # see the schedule + ETA without running anything:
-    python run_overnight.py --gpus 0,1 --dry-run
+    python scripts/train/run_overnight.py --gpus 0,1 --dry-run
 
     # actually run it (logs to logs/overnight/):
-    python run_overnight.py --gpus 0,1
+    python scripts/train/run_overnight.py --gpus 0,1
 
     # tight night on 2 GPUs: drop the ResNet-WiFi poles to 3 seeds:
-    python run_overnight.py --gpus 0,1 --reduced-poles
+    python scripts/train/run_overnight.py --gpus 0,1 --reduced-poles
 
     # resume after a crash (skips units whose test_metrics.json already exists):
-    python run_overnight.py --gpus 0,1 --resume
+    python scripts/train/run_overnight.py --gpus 0,1 --resume
 
 Estimates below are per-seed minutes on an A10-class GPU (conservative). Edit the
 MANIFEST freely; the scheduler and ETA adapt automatically.
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import json
 import subprocess
@@ -36,7 +39,7 @@ from pathlib import Path
 
 import yaml
 
-RESEARCH = Path(__file__).resolve().parent
+RESEARCH = Path(__file__).resolve().parents[2]
 LOG_DIR = RESEARCH / "logs" / "overnight"
 
 # group, config (relative to research/), seeds, est minutes/seed.
@@ -152,7 +155,7 @@ def run_unit(unit, gpu, env_base, logf):
     import os
     env = dict(env_base)
     env["CUDA_VISIBLE_DEVICES"] = str(gpu)
-    cmd = [sys.executable, "run_multiseed.py", "--configs", unit["config"],
+    cmd = [sys.executable, "scripts/train/run_multiseed.py", "--configs", unit["config"],
            "--seeds", str(unit["seed"])]
     with open(logf, "a") as lf:
         lf.write(f"\n\n===== {unit['exp']} seed {unit['seed']} on GPU {gpu} "
@@ -211,7 +214,7 @@ def aggregate(configs, gpu, env_base):
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     logf = LOG_DIR / "aggregate.log"
     for cfg, (name, n_seeds) in configs.items():
-        cmd = [sys.executable, "run_multiseed.py", "--configs", cfg,
+        cmd = [sys.executable, "scripts/train/run_multiseed.py", "--configs", cfg,
                "--num-seeds", str(n_seeds), "--skip-train"]
         with open(logf, "a") as lf:
             lf.write(f"\n===== aggregate {name} (n={n_seeds}) =====\n")

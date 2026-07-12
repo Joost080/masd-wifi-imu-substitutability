@@ -2,13 +2,16 @@
 Evaluate a trained model on the held-out MASD test split.
 
 Usage:
-    python evaluate.py configs/imu_baseline.yaml
-    python evaluate.py configs/imu_baseline.yaml experiments/rq2_imu/20260504_142010
+    python scripts/analysis/evaluate.py configs/imu_baseline.yaml
+    python scripts/analysis/evaluate.py configs/imu_baseline.yaml experiments/rq2_imu/20260504_142010
 
 If the run path is omitted, the most recent timestamp dir under the experiment
 folder is used.
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json
@@ -25,7 +28,7 @@ from src.utils.metrics import (
     per_class_f1,
     get_confusion_matrix,
 )
-from run_experiment import build_model
+from scripts.train.run_experiment import build_model
 
 
 def latest_run_dir(experiment: str) -> Path:

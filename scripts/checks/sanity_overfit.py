@@ -6,9 +6,12 @@ in a few hundred epochs, the data pipeline (labels, shapes, normalization) is
 the problem, not the architecture or hyperparameters.
 
 Usage:
-    python sanity_overfit.py
+    python scripts/checks/sanity_overfit.py
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import numpy as np
 import torch
 import torch.nn as nn

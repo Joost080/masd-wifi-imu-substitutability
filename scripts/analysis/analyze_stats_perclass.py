@@ -14,9 +14,9 @@ A_f1, B_f1, C_f1, and pairwise deltas. Also prints a sorted table to stdout
 highlighting the classes where the variants disagree most.
 
 Usage:
-    python analyze_stats_perclass.py                # single-seed (canonical CSVs)
-    python analyze_stats_perclass.py --multiseed    # multi-seed (after run_multiseed.py)
-    python analyze_stats_perclass.py --a-exp audit_dropout_imu  # override A
+    python scripts/analysis/analyze_stats_perclass.py                # single-seed (canonical CSVs)
+    python scripts/analysis/analyze_stats_perclass.py --multiseed    # multi-seed (after run_multiseed.py)
+    python scripts/analysis/analyze_stats_perclass.py --a-exp audit_dropout_imu  # override A
 """
 
 import argparse

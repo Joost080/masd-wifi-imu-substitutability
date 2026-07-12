@@ -14,12 +14,15 @@ Results layout:
     experiments/<experiment>/multiseed_summary.csv
 
 Usage (from the research/ directory):
-    python run_multiseed.py                           # 3 seeds, default configs
-    python run_multiseed.py --num-seeds 5
-    python run_multiseed.py --configs configs/imu_corrected.yaml configs/gmu_corrected.yaml
-    python run_multiseed.py --skip-train              # summarise existing runs only
+    python scripts/train/run_multiseed.py                           # 3 seeds, default configs
+    python scripts/train/run_multiseed.py --num-seeds 5
+    python scripts/train/run_multiseed.py --configs configs/imu_corrected.yaml configs/gmu_corrected.yaml
+    python scripts/train/run_multiseed.py --skip-train              # summarise existing runs only
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json
@@ -298,13 +301,13 @@ def main():
             "Run experiments in parallel across GPUs by opening multiple terminals and "
             "pinning each with CUDA_VISIBLE_DEVICES. Two common patterns:\n"
             "  - different experiments, one per GPU (no --seeds flag needed):\n"
-            "      CUDA_VISIBLE_DEVICES=0 python run_multiseed.py --configs A.yaml --num-seeds 5\n"
-            "      CUDA_VISIBLE_DEVICES=1 python run_multiseed.py --configs B.yaml --num-seeds 5\n"
+            "      CUDA_VISIBLE_DEVICES=0 python scripts/train/run_multiseed.py --configs A.yaml --num-seeds 5\n"
+            "      CUDA_VISIBLE_DEVICES=1 python scripts/train/run_multiseed.py --configs B.yaml --num-seeds 5\n"
             "  - same experiment, split seeds across GPUs:\n"
-            "      CUDA_VISIBLE_DEVICES=0 python run_multiseed.py --configs A.yaml --seeds 0 1 2\n"
-            "      CUDA_VISIBLE_DEVICES=1 python run_multiseed.py --configs A.yaml --seeds 3 4\n"
+            "      CUDA_VISIBLE_DEVICES=0 python scripts/train/run_multiseed.py --configs A.yaml --seeds 0 1 2\n"
+            "      CUDA_VISIBLE_DEVICES=1 python scripts/train/run_multiseed.py --configs A.yaml --seeds 3 4\n"
             "      # after both finish, in any terminal:\n"
-            "      python run_multiseed.py --configs A.yaml --num-seeds 5 --skip-train\n"
+            "      python scripts/train/run_multiseed.py --configs A.yaml --num-seeds 5 --skip-train\n"
         ),
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -362,7 +365,7 @@ def main():
         if partial:
             print(f"\n  Partial run on seeds [{seeds_str}] -- aggregate not written.")
             print(f"  After all seeds finish, run:")
-            print(f"    python run_multiseed.py --configs {config_path} "
+            print(f"    python scripts/train/run_multiseed.py --configs {config_path} "
                   f"--num-seeds <total> --skip-train")
         else:
             summaries.append(save_summary(name, results))

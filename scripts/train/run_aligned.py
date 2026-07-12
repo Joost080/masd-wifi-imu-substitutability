@@ -5,12 +5,15 @@ Tests the paper's central claim under the CORRECT CSI representation: does fusio
 (GMU / late concat) with amplitude/Doppler WiFi beat IMU-alone? Subject-held-out
 split. First validate IMU-alone reproduces our ~0.69-0.80 Hard before trusting fusion.
 
-    python run_aligned.py --model imu  --num-seeds 5                 # validation
-    python run_aligned.py --model wifi --rep amp --num-seeds 5
-    python run_aligned.py --model gmu  --rep amp --num-seeds 5       # the question
-    python run_aligned.py --model late --rep amp --num-seeds 5
+    python scripts/train/run_aligned.py --model imu  --num-seeds 5                 # validation
+    python scripts/train/run_aligned.py --model wifi --rep amp --num-seeds 5
+    python scripts/train/run_aligned.py --model gmu  --rep amp --num-seeds 5       # the question
+    python scripts/train/run_aligned.py --model late --rep amp --num-seeds 5
     # add --easy for 5-class; --rep doppler for the Doppler WiFi.
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse, csv, json, random
 from pathlib import Path
 import numpy as np

@@ -10,7 +10,7 @@ CSV schema (written by Trainer when training.track_gate=true):
     epoch, gate_mean, gate_std, gate_entropy, gate_min, gate_max, n_samples
 
 Usage:
-    python analyze_gate_trajectory.py audit_dropout_gmu_trajectory \\
+    python scripts/analysis/analyze_gate_trajectory.py audit_dropout_gmu_trajectory \\
         audit_dropout_gmu_moddrop --num-seeds 5
 
 The first positional argument is the "reference" experiment and is drawn in

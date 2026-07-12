@@ -14,7 +14,7 @@ It also records per-window SUBJECT (User_X) and ACTIVITY (aY) so we can build a
 leave-one-subject-out (LOSO) evaluation, which the processed arrays never allowed.
 
 Run on the server (needs internet + a few GB of scratch):
-    python build_wifi_proper.py --out-dir data/wifirb --window 500 --stride 250
+    python scripts/rebuild/build_wifi_proper.py --out-dir data/wifirb --window 500 --stride 250
 
 Resumable: downloaded raw files are cached under <out-dir>/raw_cache/ and skipped
 if present. Re-run to continue an interrupted download.

@@ -24,7 +24,7 @@ Outputs:
             y = cor(gate_c, IMU-sigma) (negative = variance-routing channel)
 
 Usage:
-    python diagnostic_perchannel.py configs/gmu_fusion_perchannel.yaml \
+    python scripts/analysis/diagnostic_perchannel.py configs/gmu_fusion_perchannel.yaml \
         experiments/rq5_gmu_perchannel/<TIMESTAMP> \
         --wifi-f1 experiments/rq1_wifi/20260504_223532/test_per_class_f1_rq1.csv \
         --imu-f1  experiments/rq2_imu/20260504_225400/test_per_class_f1_rq2.csv
@@ -32,6 +32,9 @@ Usage:
 Requires a model trained with gate_dim > 1 (per-channel gating).
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 from pathlib import Path
@@ -43,7 +46,7 @@ import numpy as np
 import torch
 import yaml
 
-from run_experiment import build_model
+from scripts.train.run_experiment import build_model
 from src.data.loaders import get_dataloader
 
 LABEL_MAP = {

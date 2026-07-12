@@ -11,14 +11,14 @@ Plus an aggregate paired Wilcoxon signed-rank test on the per-seed macro F1
 (5 paired observations: standalone IMU vs IMU-from-GMU on the same seed).
 
 Usage:
-    python analyze_cotraining_perclass.py \
+    python scripts/analysis/analyze_cotraining_perclass.py \
         --solo-exp audit_dropout_imu \
         --gmu-exp  audit_dropout_gmu \
         --num-seeds 5 \
         --suffix hard
 
 The same script handles Easy:
-    python analyze_cotraining_perclass.py \
+    python scripts/analysis/analyze_cotraining_perclass.py \
         --solo-exp audit_dropout_easy_imu \
         --gmu-exp  audit_dropout_easy_gmu \
         --num-seeds 5 \

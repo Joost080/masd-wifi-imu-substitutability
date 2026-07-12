@@ -16,7 +16,7 @@ checkpoint and runs three test-set evaluations:
   3. noise:     WiFi tensor as N(0, 1)   (sanity check on the prediction)
 
 Usage:
-    python ablation_zero_wifi.py configs/audit/gmu_fusion.yaml \\
+    python scripts/analysis/ablation_zero_wifi.py configs/audit/gmu_fusion.yaml \\
         experiments/audit_dropout_gmu/<TIMESTAMP>
 
 If the run path is omitted, the most recent timestamp dir under the
@@ -33,6 +33,9 @@ Output:
         }
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import json
 from pathlib import Path
@@ -43,7 +46,7 @@ import yaml
 
 from src.data.loaders import get_dataloader
 from src.utils.metrics import weighted_accuracy, macro_f1
-from run_experiment import build_model
+from scripts.train.run_experiment import build_model
 
 
 def latest_run_dir(experiment: str) -> Path:

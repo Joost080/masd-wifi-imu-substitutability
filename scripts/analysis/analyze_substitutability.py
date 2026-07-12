@@ -12,7 +12,7 @@ Inputs (corrected-pipeline, n=5 multiseed per-class F1):
     experiments/audit_dropout_imu/multiseed_per_class_f1.csv       (IMU = DeepConvLSTM, Hard)
     experiments/stats_imu_only/multiseed_per_class_f1.csv          (stats-only MLP, Hard)
 
-Usage:  python analyze_substitutability.py
+Usage:  python scripts/analysis/analyze_substitutability.py
 Writes: results/substitutability_perclass.csv  and prints the two findings.
 """
 import csv

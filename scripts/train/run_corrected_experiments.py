@@ -11,10 +11,13 @@ timestamped run directory AND copied to a canonical path:
   experiments/rq5_imu_easy5/test_confusion_matrix.npy
 
 Usage (from the research/ directory):
-    python run_corrected_experiments.py
-    python run_corrected_experiments.py --skip-train   # evaluate latest run only
+    python scripts/train/run_corrected_experiments.py
+    python scripts/train/run_corrected_experiments.py --skip-train   # evaluate latest run only
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json

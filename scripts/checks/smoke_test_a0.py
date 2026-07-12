@@ -11,12 +11,15 @@ Verifies, with torch present, the two changes that the supervisor's replan rests
         IMU at 150; the fusion models forward cleanly at the new temporal length.
 
 Usage (from research/):
-    python smoke_test_a0.py            # quick (Easy-filter WiFi gather is small)
-    python smoke_test_a0.py --full     # also primes the 27-class WiFi stats cache (~3 GB read)
+    python scripts/checks/smoke_test_a0.py            # quick (Easy-filter WiFi gather is small)
+    python scripts/checks/smoke_test_a0.py --full     # also primes the 27-class WiFi stats cache (~3 GB read)
 
 Exit code 0 = all checks passed; nonzero = a check failed.
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import sys
 

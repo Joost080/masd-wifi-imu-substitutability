@@ -8,9 +8,9 @@ Produces:
   results/rq4_gate_trajectories.pdf/png - gate over time for selected activities
 
 Usage:
-    python analyze_gates.py configs/gmu_fusion.yaml
-    python analyze_gates.py configs/gmu_fusion.yaml experiments/rq3_gmu_fusion/20260505_123456
-    python analyze_gates.py configs/gmu_fusion.yaml \\
+    python scripts/analysis/analyze_gates.py configs/gmu_fusion.yaml
+    python scripts/analysis/analyze_gates.py configs/gmu_fusion.yaml experiments/rq3_gmu_fusion/20260505_123456
+    python scripts/analysis/analyze_gates.py configs/gmu_fusion.yaml \\
         --wifi-f1 experiments/rq1_wifi/test_per_class_f1.csv \\
         --imu-f1 experiments/rq2_imu/test_per_class_f1.csv \\
         --activities 3 7 12 18 24
@@ -24,6 +24,9 @@ Gate convention: g=1 means WiFi fully used, g=0 means IMU fully used.
   the class with the largest |WiFi_F1 - IMU_F1| gap.
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 from pathlib import Path
@@ -35,7 +38,7 @@ import numpy as np
 import torch
 import yaml
 
-from run_experiment import build_model
+from scripts.train.run_experiment import build_model
 from src.data.loaders import get_dataloader
 
 # MASD 27-class label mapping (Li et al. 2025, Table 1 — Easy→Medium→Hard ordering).

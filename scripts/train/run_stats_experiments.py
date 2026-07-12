@@ -10,10 +10,13 @@ retraining needed for variant A.
 Side-experiment, NOT in proposal. See experiment_log.md for context.
 
 Usage (from the research/ directory):
-    python run_stats_experiments.py
-    python run_stats_experiments.py --skip-train   # eval only
+    python scripts/train/run_stats_experiments.py
+    python scripts/train/run_stats_experiments.py --skip-train   # eval only
 """
 
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import argparse
 import csv
 import json

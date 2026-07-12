@@ -4,9 +4,12 @@ Server-side smoke test for the §C experiments (run after `git pull`, before tra
 Checks the magnetometer ablation (6-axis acc+gyro), the ResNet-1D-on-IMU input,
 and the 2D-CNN-on-CSI model: shapes, channel-slicing consistency, and forwards.
 
-Usage (from research/):  python smoke_test_c.py
+Usage (from research/):  python scripts/checks/smoke_test_c.py
 Exit 0 = all passed.
 """
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))  # repo root
 import sys
 import numpy as np
 import torch
