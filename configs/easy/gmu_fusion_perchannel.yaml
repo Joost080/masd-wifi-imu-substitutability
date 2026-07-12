@@ -1,0 +1,26 @@
+experiment: rq5_easy_gmu_perchannel
+
+data:
+  modality: gmu_fusion
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  num_classes: 5
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.1
+  lstm_dropout: 0.0
+  head_dropout: 0.5
+  gate_dim: 64   # per-channel gate
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

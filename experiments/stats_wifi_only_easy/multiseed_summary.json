@@ -1,0 +1,40 @@
+{
+  "experiment": "stats_wifi_only_easy",
+  "num_seeds": 5,
+  "acc_mean": 0.2761111111111111,
+  "acc_std": 0.015664302422079654,
+  "f1_mean": 0.2765702890497267,
+  "f1_std": 0.01909417264808822,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.2722222222222222,
+      "macro_f1": 0.27049430944338304,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.25555555555555554,
+      "macro_f1": 0.2552635253656951,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.26944444444444443,
+      "macro_f1": 0.2644527249811367,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.28888888888888886,
+      "macro_f1": 0.29182147007351444,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.29444444444444445,
+      "macro_f1": 0.30081941538490425,
+      "n_samples": 360
+    }
+  ]
+}

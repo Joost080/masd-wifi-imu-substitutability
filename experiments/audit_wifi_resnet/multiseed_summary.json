@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_wifi_resnet",
+  "num_seeds": 5,
+  "acc_mean": 0.09070247933884298,
+  "acc_std": 0.022513788852113786,
+  "f1_mean": 0.058969389611368696,
+  "f1_std": 0.01565014283894826,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.08419421487603305,
+      "macro_f1": 0.05989697144748879,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.06766528925619834,
+      "macro_f1": 0.0525090471838412,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.10898760330578512,
+      "macro_f1": 0.06252525207124923,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.11931818181818182,
+      "macro_f1": 0.08143472427804638,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.07334710743801653,
+      "macro_f1": 0.038480953076217836,
+      "n_samples": 1936
+    }
+  ]
+}

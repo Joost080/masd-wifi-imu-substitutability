@@ -1,0 +1,40 @@
+{
+  "experiment": "ablation_imu_stats_spectral",
+  "num_seeds": 5,
+  "acc_mean": 0.7576446280991735,
+  "acc_std": 0.01933847323408642,
+  "f1_mean": 0.7497825667730124,
+  "f1_std": 0.020531918854991962,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.7370867768595041,
+      "macro_f1": 0.7276502421687125,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.7644628099173554,
+      "macro_f1": 0.7571789084499612,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7840909090909091,
+      "macro_f1": 0.7787234235106361,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.7401859504132231,
+      "macro_f1": 0.7325996860237517,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.762396694214876,
+      "macro_f1": 0.7527605737120004,
+      "n_samples": 1936
+    }
+  ]
+}

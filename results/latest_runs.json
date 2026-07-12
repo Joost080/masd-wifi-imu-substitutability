@@ -1,0 +1,1472 @@
+{
+  "metadata": {
+    "dataset": "MASD (Li et al. 2025, SenSys)",
+    "n_classes_hard": 27,
+    "n_classes_easy": 5,
+    "easy_class_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "easy_class_names": [
+      "Standing",
+      "Walking",
+      "Jumping",
+      "Sitting",
+      "Lying"
+    ],
+    "modalities": {
+      "wifi_csi": {
+        "shape": [
+          500,
+          224
+        ],
+        "sampling_hz": 100,
+        "router": "TP-Link WDR 4300, 802.11n"
+      },
+      "imu": {
+        "shape": [
+          150,
+          9
+        ],
+        "sampling_hz": 30,
+        "channels": "Acc XYZ + Gyro XYZ + Mag XYZ"
+      }
+    },
+    "split": {
+      "data_split_seed": 42,
+      "train": 7329,
+      "val": 1832,
+      "test_hard": 1936,
+      "test_easy": 360
+    },
+    "regularisation": {
+      "audit": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5,
+        "note": "Standard DeepConvLSTM regularisation; canonical setting for all n=5 runs"
+      },
+      "low": {
+        "conv": 0.1,
+        "lstm": 0.0,
+        "head": 0.5,
+        "note": "Earlier under-regularised setting; only legacy single-seed Early/Late fusion still use this"
+      }
+    },
+    "multi_seed_convention": {
+      "model_init_seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "data_split_seed": "fixed at 42",
+      "rngs_seeded": [
+        "random",
+        "numpy",
+        "torch",
+        "torch.cuda"
+      ],
+      "deterministic": true
+    },
+    "metrics_definition": {
+      "test_accuracy": "weighted_accuracy from sklearn (== plain accuracy on balanced dataset)",
+      "test_macro_f1": "sklearn macro F1 with zero_division=0"
+    },
+    "regime_labels": {
+      "hard_27class": "Full 27-class HAR task; n_test = 1936",
+      "easy_5class": "5-class subset (class_filter=[0,1,2,3,4], remapped 0..4); n_test = 360"
+    },
+    "generated_by": "dump_latest_runs.py",
+    "source_log": "research/experiment_log.md"
+  },
+  "runs": [
+    {
+      "id": "audit_dropout_wifi",
+      "name": "WiFi DeepConvLSTM",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi",
+      "architecture": "DeepConvLSTM",
+      "num_params": 368283,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.05919421487603305,
+        "std": 0.007701305975075935
+      },
+      "test_macro_f1": {
+        "mean": 0.03184727076258292,
+        "std": 0.007120882179960549
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.060950413223140494,
+          "macro_f1": 0.020726083107008155
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.054235537190082644,
+          "macro_f1": 0.03752671464003087
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.05268595041322314,
+          "macro_f1": 0.03825114053539799
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.05630165289256198,
+          "macro_f1": 0.02972021821880672
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.07179752066115702,
+          "macro_f1": 0.03301219731167084
+        }
+      ],
+      "source": "experiments/audit_dropout_wifi/multiseed_summary.json",
+      "notes": "WiFi alone is at floor on Hard. Per the SKELAR paper, CSI-only backbones cannot solve the Hard set."
+    },
+    {
+      "id": "audit_wifi_resnet",
+      "name": "WiFi ResNet-1D",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi",
+      "architecture": "ResNet-1D (4 stages \u00d7 2 BasicBlock1d)",
+      "num_params": 1910000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.09483471074380166,
+        "std": 0.008670919242869134
+      },
+      "test_macro_f1": {
+        "mean": 0.06651938524420027,
+        "std": 0.007942255441894497
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.10278925619834711,
+          "macro_f1": 0.07919614621950152
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.08006198347107438,
+          "macro_f1": 0.059050668976206165
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.09555785123966942,
+          "macro_f1": 0.06076644603100782
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.0981404958677686,
+          "macro_f1": 0.065653647560823
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.09762396694214875,
+          "macro_f1": 0.06793001743346284
+        }
+      ],
+      "source": "experiments/audit_wifi_resnet/multiseed_summary.json",
+      "notes": "Track 1C \u2014 stronger backbone adds ~3.6 pp over DeepConvLSTM but stays near the random floor."
+    },
+    {
+      "id": "audit_dropout_imu",
+      "name": "IMU DeepConvLSTM",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "imu",
+      "architecture": "DeepConvLSTM",
+      "num_params": 299483,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.7013429752066116,
+        "std": 0.04942293870005439
+      },
+      "test_macro_f1": {
+        "mean": 0.6916231355339064,
+        "std": 0.059681062658115486
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.7128099173553719,
+          "macro_f1": 0.7149434366265143
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.6528925619834711,
+          "macro_f1": 0.6292094041601092
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.6518595041322314,
+          "macro_f1": 0.6320133906303278
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.7680785123966942,
+          "macro_f1": 0.7672761163375824
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.7210743801652892,
+          "macro_f1": 0.7146733299149985
+        }
+      ],
+      "source": "experiments/audit_dropout_imu/multiseed_summary.json",
+      "notes": "Single-modality IMU baseline. Strongest single-modality model on Hard."
+    },
+    {
+      "id": "audit_dropout_gmu",
+      "name": "GMU scalar fusion",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "GMU (scalar gate, dim=1)",
+      "num_params": 432988,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.6495867768595042,
+        "std": 0.018636604147171727
+      },
+      "test_macro_f1": {
+        "mean": 0.6331054284352733,
+        "std": 0.022666512373315195
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.6523760330578512,
+          "macro_f1": 0.6391598988927337
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.6203512396694215,
+          "macro_f1": 0.5989506478844864
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.672004132231405,
+          "macro_f1": 0.6622715953187004
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.6487603305785123,
+          "macro_f1": 0.6331400252227071
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.6544421487603306,
+          "macro_f1": 0.6320049748577383
+        }
+      ],
+      "source": "experiments/audit_dropout_gmu/multiseed_summary.json",
+      "notes": "Gate fully closed at inference (mean=std=entropy=0 for all 27 classes). Bitwise-identical predictions when WiFi replaced by N(0,1) noise.",
+      "gate_dim": 1,
+      "gate_status": "closed"
+    },
+    {
+      "id": "audit_dropout_gmu_perchannel",
+      "name": "GMU per-channel fusion",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "GMU (per-channel gate, dim=64)",
+      "num_params": 441000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.6082644628099174,
+        "std": 0.04041257087222273
+      },
+      "test_macro_f1": {
+        "mean": 0.5884437174039461,
+        "std": 0.04743294806747892
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.6193181818181818,
+          "macro_f1": 0.5923366226973313
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.6678719008264463,
+          "macro_f1": 0.6614267313879538
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.6074380165289256,
+          "macro_f1": 0.5813204123377724
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.5588842975206612,
+          "macro_f1": 0.5293351163710159
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.5878099173553719,
+          "macro_f1": 0.5777997042256572
+        }
+      ],
+      "source": "experiments/audit_dropout_gmu_perchannel/multiseed_summary.json",
+      "notes": "Track 1B \u2014 routing structure is seed-unstable on Hard (structured 33.2 \u00b1 18.8 of 64 channels). Two local optima: routing solution vs dead-gate solution.",
+      "gate_dim": 64,
+      "structured_channels": {
+        "mean": 33.2,
+        "std": 18.79,
+        "per_seed": [
+          30,
+          48,
+          40,
+          46,
+          2
+        ]
+      }
+    },
+    {
+      "id": "audit_dropout_gmu_moddrop",
+      "name": "GMU scalar + modality dropout p=0.3",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "GMU (scalar) + moddrop",
+      "num_params": 432988,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.6398760330578512,
+        "std": 0.02900023581532477
+      },
+      "test_macro_f1": {
+        "mean": 0.6238871205772534,
+        "std": 0.035412327192791256
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.6503099173553719,
+          "macro_f1": 0.6388686082141947
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.6823347107438017,
+          "macro_f1": 0.6763112610950577
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.6291322314049587,
+          "macro_f1": 0.6114723404367871
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.6038223140495868,
+          "macro_f1": 0.5826572009588802
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.6337809917355371,
+          "macro_f1": 0.6101261921813469
+        }
+      ],
+      "source": "experiments/audit_dropout_gmu_moddrop/multiseed_summary.json",
+      "notes": "Track 2A \u2014 even forcing 30% modality dropout during training, gate stays at entropy=0 on every seed at inference. Closure is intrinsic.",
+      "moddrop_p": 0.3,
+      "gate_status": "closed"
+    },
+    {
+      "id": "audit_dropout_gmu_trajectory",
+      "name": "GMU scalar (gate-tracked baseline)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "GMU (scalar)",
+      "num_params": 432988,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.6435950413223142,
+        "std": 0.023318292025404374
+      },
+      "test_macro_f1": {
+        "mean": 0.6286288157701788,
+        "std": 0.0217145770706557
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.6596074380165289,
+          "macro_f1": 0.6432362646832366
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.6074380165289256,
+          "macro_f1": 0.5942657660046395
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.65650826446281,
+          "macro_f1": 0.6405434521534092
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.6616735537190083,
+          "macro_f1": 0.6451825033471678
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.6327479338842975,
+          "macro_f1": 0.6199160926624411
+        }
+      ],
+      "source": "experiments/audit_dropout_gmu_trajectory/multiseed_summary.json",
+      "notes": "Track 2B baseline \u2014 re-run of GMU with per-epoch gate-trajectory logging for the moddrop comparison. Final-epoch gate = 0 on all 5 seeds.",
+      "track_gate": true,
+      "gate_status": "closed"
+    },
+    {
+      "id": "stats_imu_only",
+      "name": "Stats IMU MLP (54-D features)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "imu_stats",
+      "architecture": "MLP on 54-D hand-crafted features",
+      "num_params": 27000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.75,
+        "std": 0.01366118921016342
+      },
+      "test_macro_f1": {
+        "mean": 0.7363499752564204,
+        "std": 0.014923386781907728
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.7510330578512396,
+          "macro_f1": 0.7403745893260294
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.7546487603305785,
+          "macro_f1": 0.740217358335781
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.7443181818181818,
+          "macro_f1": 0.7286726607143463
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.731404958677686,
+          "macro_f1": 0.7162337419423056
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.768595041322314,
+          "macro_f1": 0.7562515259636394
+        }
+      ],
+      "source": "experiments/stats_imu_only/multiseed_summary.json",
+      "notes": "27 K-param MLP MATCHES the 299 K-param DeepConvLSTM on Hard (within seed noise).",
+      "feature_dim": 54,
+      "features": "per axis: mean, std, min, max, median, MAD (9 axes \u00d7 6)"
+    },
+    {
+      "id": "stats_imu_raw_stats",
+      "name": "IMU raw + stats (DeepConvLSTM trunk + stats MLP)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "imu_raw+imu_stats",
+      "architecture": "DeepConvLSTM trunk \u2295 stats-MLP (concat-and-head)",
+      "num_params": 309000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.7445247933884297,
+        "std": 0.010418018376428669
+      },
+      "test_macro_f1": {
+        "mean": 0.7356707765808082,
+        "std": 0.013485857374024903
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.7494834710743802,
+          "macro_f1": 0.7440388224129401
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.7308884297520661,
+          "macro_f1": 0.7192507700219826
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.7546487603305785,
+          "macro_f1": 0.7462448140773107
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.7360537190082644,
+          "macro_f1": 0.7227298005801503
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.7515495867768595,
+          "macro_f1": 0.7460896758116573
+        }
+      ],
+      "source": "experiments/stats_imu_raw_stats/multiseed_summary.json",
+      "notes": "Combining raw and stats does not give best-of-both \u2014 per-class compromise."
+    },
+    {
+      "id": "gated_stats_fusion",
+      "name": "Gated stats fusion (IMU stats + WiFi stats)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "imu_stats+wifi_stats",
+      "architecture": "Two stats MLPs + scalar GMU",
+      "num_params": 14800,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.7160123966942148,
+        "std": 0.012431081782224214
+      },
+      "test_macro_f1": {
+        "mean": 0.6963499477919337,
+        "std": 0.01609914042546164
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.7370867768595041,
+          "macro_f1": 0.7233390581796111
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.7091942148760331,
+          "macro_f1": 0.6881871460140822
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.7071280991735537,
+          "macro_f1": 0.6836173041298622
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.7091942148760331,
+          "macro_f1": 0.6877804671082225
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.7174586776859504,
+          "macro_f1": 0.6988257635278907
+        }
+      ],
+      "source": "experiments/gated_stats_fusion/multiseed_summary.json",
+      "notes": "Gated fusion is significantly WORSE than IMU-stats alone on Hard (-3.4 pp, p<0.01). Gate does not cleanly close on IMU \u2192 leaks noisy CSI dims into a fine-grained task.",
+      "gate_dim": 1
+    },
+    {
+      "id": "audit_dropout_gmu/imu_from_gmu",
+      "name": "IMU encoder extracted from GMU (evaluated alone)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "imu (extracted)",
+      "architecture": "DeepConvLSTM (mapped from GMU)",
+      "num_params": 299483,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.4711776859504132,
+        "std": 0.03929593736762316
+      },
+      "test_macro_f1": {
+        "mean": 0.43671617277512187,
+        "std": 0.04076878071399748
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.5087809917355371,
+          "macro_f1": 0.4706968989851876
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.4597107438016529,
+          "macro_f1": 0.4303196564513517
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.4385330578512397,
+          "macro_f1": 0.4008774894411815
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.43233471074380164,
+          "macro_f1": 0.395377546702111
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.5165289256198347,
+          "macro_f1": 0.48630927229577775
+        }
+      ],
+      "source": "experiments/audit_dropout_gmu/imu_from_gmu/cotraining_summary.json",
+      "notes": "Track 1A \u2014 causal test of co-training. The GMU's IMU pathway evaluated as a standalone IMU model drops 23 pp vs the standalone IMU baseline. Co-training HURTS the IMU encoder. Paired t = 8.45, p = 0.001."
+    },
+    {
+      "id": "rq3_early_fusion (single-seed)",
+      "name": "Early fusion (concat inputs)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "DeepConvLSTM(233ch) on concat WiFi + upsampled IMU",
+      "num_params": 370000,
+      "dropout": {
+        "conv": 0.1,
+        "lstm": 0.0,
+        "head": 0.5
+      },
+      "num_seeds": 1,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.5238,
+        "std": null
+      },
+      "test_macro_f1": {
+        "mean": 0.4933,
+        "std": null
+      },
+      "per_seed": [
+        {
+          "seed": 42,
+          "weighted_accuracy": 0.5238,
+          "macro_f1": 0.4933
+        }
+      ],
+      "source": "experiment_log.md 2026-05-04 (no canonical JSON on disk)",
+      "notes": "Single-seed, pre-audit dropout (0.1/0.0/0.5). Has NOT been re-run at audit dropout."
+    },
+    {
+      "id": "rq3_late_fusion (single-seed)",
+      "name": "Late fusion (concat embeddings)",
+      "regime": "hard_27class",
+      "n_classes": 27,
+      "modality": "wifi+imu",
+      "architecture": "Two encoders + concat 256-d + LSTM + head",
+      "num_params": 668000,
+      "dropout": {
+        "conv": 0.1,
+        "lstm": 0.0,
+        "head": 0.5
+      },
+      "num_seeds": 1,
+      "n_test_samples": 1936,
+      "test_accuracy": {
+        "mean": 0.6777,
+        "std": null
+      },
+      "test_macro_f1": {
+        "mean": 0.6666,
+        "std": null
+      },
+      "per_seed": [
+        {
+          "seed": 42,
+          "weighted_accuracy": 0.6777,
+          "macro_f1": 0.6666
+        }
+      ],
+      "source": "experiment_log.md 2026-05-04 (no canonical JSON on disk)",
+      "notes": "Single-seed, pre-audit dropout (0.1/0.0/0.5). Has NOT been re-run at audit dropout."
+    },
+    {
+      "id": "audit_dropout_easy_wifi",
+      "name": "WiFi DeepConvLSTM (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi",
+      "architecture": "DeepConvLSTM",
+      "num_params": 368283,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.3277777777777778,
+        "std": 0.030932024237944573
+      },
+      "test_macro_f1": {
+        "mean": 0.27889289694432023,
+        "std": 0.0355989315784741
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.3472222222222222,
+          "macro_f1": 0.3075223742318783
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.3,
+          "macro_f1": 0.2251952369391454
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.325,
+          "macro_f1": 0.27157291279795065
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.36944444444444446,
+          "macro_f1": 0.3149360510600703
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.2972222222222222,
+          "macro_f1": 0.2752379096925565
+        }
+      ],
+      "source": "experiments/audit_dropout_easy_wifi/multiseed_summary.json",
+      "notes": "WiFi-Easy is well above floor at audit dropout (~33%)."
+    },
+    {
+      "id": "audit_wifi_resnet_easy",
+      "name": "WiFi ResNet-1D (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi",
+      "architecture": "ResNet-1D (4 stages \u00d7 2 BasicBlock1d)",
+      "num_params": 1910000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.46777777777777774,
+        "std": 0.03059341089390747
+      },
+      "test_macro_f1": {
+        "mean": 0.41847237159955136,
+        "std": 0.05292471756550367
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.4722222222222222,
+          "macro_f1": 0.4098362752807267
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.5083333333333333,
+          "macro_f1": 0.49364460574730185
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.48333333333333334,
+          "macro_f1": 0.4441943677237795
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.4388888888888889,
+          "macro_f1": 0.3555913906086411
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.4361111111111111,
+          "macro_f1": 0.38909521863730767
+        }
+      ],
+      "source": "experiments/audit_wifi_resnet_easy/multiseed_summary.json",
+      "notes": "Track 1C \u2014 Easy 46.8% vs SKELAR ResNet ~55% (hyperparameter / preprocessing gap)."
+    },
+    {
+      "id": "audit_dropout_easy_imu",
+      "name": "IMU DeepConvLSTM (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "imu",
+      "architecture": "DeepConvLSTM",
+      "num_params": 299483,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.865,
+        "std": 0.036514837167011066
+      },
+      "test_macro_f1": {
+        "mean": 0.8565651262181314,
+        "std": 0.03721661243430144
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.8055555555555556,
+          "macro_f1": 0.7981882459623068
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.9055555555555556,
+          "macro_f1": 0.8996743996743997
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.8666666666666667,
+          "macro_f1": 0.8505634225651153
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.875,
+          "macro_f1": 0.8696311522210802
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.8722222222222222,
+          "macro_f1": 0.8647684106677549
+        }
+      ],
+      "source": "experiments/audit_dropout_easy_imu/multiseed_summary.json",
+      "notes": "Strongest non-stats single-modality model on Easy."
+    },
+    {
+      "id": "audit_dropout_easy_gmu",
+      "name": "GMU scalar fusion (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi+imu",
+      "architecture": "GMU (scalar gate)",
+      "num_params": 432988,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.8572222222222223,
+        "std": 0.05191547023174031
+      },
+      "test_macro_f1": {
+        "mean": 0.8428410762801051,
+        "std": 0.05501136270443516
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.8861111111111111,
+          "macro_f1": 0.8754455031687085
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.8666666666666667,
+          "macro_f1": 0.8486301342335825
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.8361111111111111,
+          "macro_f1": 0.8062556276050872
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.7805555555555556,
+          "macro_f1": 0.7724089749872343
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.9166666666666666,
+          "macro_f1": 0.9114651414059127
+        }
+      ],
+      "source": "experiments/audit_dropout_easy_gmu/multiseed_summary.json",
+      "notes": "On Easy at audit dropout, gate also closes at inference, but accuracy is statistically equal to IMU-alone (within combined std).",
+      "gate_dim": 1,
+      "gate_status": "closed"
+    },
+    {
+      "id": "audit_dropout_easy_gmu_perchannel",
+      "name": "GMU per-channel fusion (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi+imu",
+      "architecture": "GMU (per-channel gate, dim=64)",
+      "num_params": 441000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.8838888888888888,
+        "std": 0.01938482924707542
+      },
+      "test_macro_f1": {
+        "mean": 0.8747771302779173,
+        "std": 0.02644493500267251
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.875,
+          "macro_f1": 0.8644592790387182
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.8611111111111112,
+          "macro_f1": 0.83897311827957
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.8833333333333333,
+          "macro_f1": 0.8786182195422642
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.9138888888888889,
+          "macro_f1": 0.9117347093223254
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.8861111111111111,
+          "macro_f1": 0.8801003252067081
+        }
+      ],
+      "source": "experiments/audit_dropout_easy_gmu_perchannel/multiseed_summary.json",
+      "notes": "Track 1B \u2014 routing structure is STABLE across seeds (55.4 \u00b1 0.9 of 64 channels structured). Emerges robustly when WiFi has competitive signal.",
+      "gate_dim": 64,
+      "structured_channels": {
+        "mean": 55.4,
+        "std": 0.89,
+        "per_seed": [
+          56,
+          56,
+          56,
+          55,
+          54
+        ]
+      }
+    },
+    {
+      "id": "stats_wifi_only_easy",
+      "name": "Stats WiFi MLP (33-D features)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi_stats",
+      "architecture": "MLP on 33-D hand-crafted features",
+      "num_params": 10000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.27,
+        "std": 0.017502204446692624
+      },
+      "test_macro_f1": {
+        "mean": 0.2775556104193712,
+        "std": 0.0196367634375585
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.2722222222222222,
+          "macro_f1": 0.28417454634182515
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.275,
+          "macro_f1": 0.2895697389456867
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.29444444444444445,
+          "macro_f1": 0.29986370572244014
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.2611111111111111,
+          "macro_f1": 0.2601280487207377
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.24722222222222223,
+          "macro_f1": 0.25404201236616647
+        }
+      ],
+      "source": "experiments/stats_wifi_only_easy/multiseed_summary.json",
+      "notes": "Falsifies CSI summary-stats: ~27% (\u2248 random floor 20%) on Easy \u2192 not extended to Hard. Welch t vs Raw-WiFi-Easy: t = -3.64, p \u2248 0.01.",
+      "feature_dim": 33
+    },
+    {
+      "id": "stats_imu_only_easy",
+      "name": "Stats IMU MLP (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "imu_stats",
+      "architecture": "MLP on 54-D hand-crafted features",
+      "num_params": 27000,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.9355555555555556,
+        "std": 0.0120120823946887
+      },
+      "test_macro_f1": {
+        "mean": 0.9355359771577849,
+        "std": 0.011979692119629905
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.9277777777777778,
+          "macro_f1": 0.9285787109100166
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.9361111111111111,
+          "macro_f1": 0.9363358814084501
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.9555555555555556,
+          "macro_f1": 0.9553178512784424
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.925,
+          "macro_f1": 0.9242030749229512
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.9333333333333333,
+          "macro_f1": 0.9332443672690633
+        }
+      ],
+      "source": "experiments/stats_imu_only_easy/multiseed_summary.json",
+      "notes": "27 K-param MLP BEATS the 299 K-param DeepConvLSTM on Easy (~94% vs ~87%).",
+      "feature_dim": 54
+    },
+    {
+      "id": "stats_imu_wifi_easy",
+      "name": "Stats concat fusion IMU+WiFi (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "imu_stats+wifi_stats",
+      "architecture": "Concat (54+33) \u2192 2-hidden-layer MLP",
+      "num_params": 28400,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.8805555555555555,
+        "std": 0.009419902754340658
+      },
+      "test_macro_f1": {
+        "mean": 0.8770422839653268,
+        "std": 0.010080696536560288
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.8694444444444445,
+          "macro_f1": 0.867829817936201
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.8833333333333333,
+          "macro_f1": 0.8760969313403006
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.8944444444444445,
+          "macro_f1": 0.8940229241960663
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.875,
+          "macro_f1": 0.8714976878889429
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.8805555555555555,
+          "macro_f1": 0.8757640584651231
+        }
+      ],
+      "source": "experiments/stats_imu_wifi_easy/multiseed_summary.json",
+      "notes": "Concat hurts -5.5 pp vs IMU-stats-alone (Welch t = -8.06, p \u226a 0.001). Noisy CSI dims act as distractors."
+    },
+    {
+      "id": "gated_stats_fusion_easy",
+      "name": "Gated stats fusion IMU+WiFi (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "imu_stats+wifi_stats",
+      "architecture": "Two stats MLPs + scalar GMU",
+      "num_params": 14800,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.95,
+        "std": 0.013176156917368242
+      },
+      "test_macro_f1": {
+        "mean": 0.9500469177599872,
+        "std": 0.013531913603351223
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.9583333333333334,
+          "macro_f1": 0.9585123713297353
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.95,
+          "macro_f1": 0.9500574052812858
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.9277777777777778,
+          "macro_f1": 0.9271548577208956
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.9527777777777777,
+          "macro_f1": 0.9532035532035532
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.9611111111111111,
+          "macro_f1": 0.961306401264466
+        }
+      ],
+      "source": "experiments/gated_stats_fusion_easy/multiseed_summary.json",
+      "notes": "Best result on Easy. +1.4 pp vs IMU-stats-alone (Welch t = 1.80, p \u2248 0.11, borderline). +6.9 pp vs concat (p \u226a 0.001). Architecture matters more than modality here.",
+      "gate_dim": 1
+    },
+    {
+      "id": "audit_dropout_easy_gmu/imu_from_gmu",
+      "name": "IMU encoder extracted from GMU (Easy)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "imu (extracted)",
+      "architecture": "DeepConvLSTM (mapped from GMU)",
+      "num_params": 299483,
+      "dropout": {
+        "conv": 0.5,
+        "lstm": 0.5,
+        "head": 0.5
+      },
+      "num_seeds": 5,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.7994444444444444,
+        "std": 0.039155829864091496
+      },
+      "test_macro_f1": {
+        "mean": 0.7428659622799524,
+        "std": 0.03516100002540533
+      },
+      "per_seed": [
+        {
+          "seed": 0,
+          "weighted_accuracy": 0.8083333333333333,
+          "macro_f1": 0.7453802430619858
+        },
+        {
+          "seed": 1,
+          "weighted_accuracy": 0.8166666666666667,
+          "macro_f1": 0.7542017510366217
+        },
+        {
+          "seed": 2,
+          "weighted_accuracy": 0.8277777777777777,
+          "macro_f1": 0.7808573596354649
+        },
+        {
+          "seed": 3,
+          "weighted_accuracy": 0.7305555555555555,
+          "macro_f1": 0.68513920064114
+        },
+        {
+          "seed": 4,
+          "weighted_accuracy": 0.8138888888888889,
+          "macro_f1": 0.7487512570245489
+        }
+      ],
+      "source": "experiments/audit_dropout_easy_gmu/imu_from_gmu/cotraining_summary.json",
+      "notes": "Track 1A \u2014 Easy drops 7 pp vs standalone IMU (less damage than Hard). Paired t = 4.71, p = 0.009. Damage isolated to class 1 (Walking)."
+    },
+    {
+      "id": "rq5_easy_early_fusion/20260505_154444",
+      "name": "Early fusion (Easy 5-class)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi+imu",
+      "architecture": "DeepConvLSTM(233ch) on concat WiFi + upsampled IMU",
+      "num_params": 370000,
+      "dropout": {
+        "conv": 0.1,
+        "lstm": 0.0,
+        "head": 0.5
+      },
+      "num_seeds": 1,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.55,
+        "std": null
+      },
+      "test_macro_f1": {
+        "mean": 0.5420311397999555,
+        "std": null
+      },
+      "per_seed": [
+        {
+          "seed": 42,
+          "weighted_accuracy": 0.55,
+          "macro_f1": 0.5420311397999555
+        }
+      ],
+      "source": "experiments/rq5_easy_early_fusion/20260505_154444/test_metrics.json",
+      "notes": "Single-seed, pre-audit dropout. Shared conv encoder degrades IMU feature extraction."
+    },
+    {
+      "id": "rq5_easy_late_fusion/20260505_154643",
+      "name": "Late fusion (Easy 5-class)",
+      "regime": "easy_5class",
+      "n_classes": 5,
+      "modality": "wifi+imu",
+      "architecture": "Two encoders + concat 256-d + LSTM + head",
+      "num_params": 668000,
+      "dropout": {
+        "conv": 0.1,
+        "lstm": 0.0,
+        "head": 0.5
+      },
+      "num_seeds": 1,
+      "n_test_samples": 360,
+      "test_accuracy": {
+        "mean": 0.8722222222222222,
+        "std": null
+      },
+      "test_macro_f1": {
+        "mean": 0.8633557715784752,
+        "std": null
+      },
+      "per_seed": [
+        {
+          "seed": 42,
+          "weighted_accuracy": 0.8722222222222222,
+          "macro_f1": 0.8633557715784752
+        }
+      ],
+      "source": "experiments/rq5_easy_late_fusion/20260505_154643/test_metrics.json",
+      "notes": "Single-seed, pre-audit dropout. Approximately matches IMU-alone; WiFi adds little."
+    }
+  ],
+  "statistical_tests": [
+    {
+      "id": "gmu_vs_imu_hard",
+      "comparison": "GMU scalar Hard vs IMU Hard",
+      "test": "Welch t-test (independent, n=5)",
+      "delta": "\u22120.052 pp accuracy (audit n=5 means)",
+      "result": "Not statistically distinguishable (within combined std)."
+    },
+    {
+      "id": "stats_imu_vs_raw_imu_hard",
+      "comparison": "Stats IMU MLP Hard vs Raw IMU DeepConvLSTM Hard",
+      "test": "Welch t-test (n=5 each)",
+      "delta": "+0.049 pp accuracy",
+      "result": "Within initialization noise. Stats matches raw at 11\u00d7 fewer parameters."
+    },
+    {
+      "id": "gated_stats_vs_imu_stats_easy",
+      "comparison": "Gated stats fusion Easy vs Stats IMU Easy",
+      "test": "Welch t-test (n=5)",
+      "statistic": {
+        "t": 1.8,
+        "df": 8,
+        "p": 0.11
+      },
+      "delta": "+1.44 pp accuracy",
+      "result": "Borderline, not significant at \u03b1=0.05."
+    },
+    {
+      "id": "gated_stats_vs_concat_easy",
+      "comparison": "Gated stats fusion Easy vs Concat stats fusion Easy",
+      "test": "Welch t-test (n=5)",
+      "statistic": {
+        "t": 9.6,
+        "df": 8,
+        "p": "<0.001"
+      },
+      "delta": "+6.94 pp accuracy",
+      "result": "Highly significant \u2014 gating recovers what concat dilutes."
+    },
+    {
+      "id": "gated_stats_vs_imu_stats_hard",
+      "comparison": "Gated stats fusion Hard vs Stats IMU Hard",
+      "test": "Welch t-test (n=5)",
+      "statistic": {
+        "t": -3.9,
+        "df": 8,
+        "p": "<0.01"
+      },
+      "delta": "\u22123.40 pp accuracy",
+      "result": "Significant DROP \u2014 gating fails on Hard because gate cannot cleanly close on IMU."
+    },
+    {
+      "id": "concat_vs_imu_stats_easy",
+      "comparison": "Concat stats fusion Easy vs Stats IMU Easy",
+      "test": "Welch t-test (n=5)",
+      "statistic": {
+        "t": -8.06,
+        "df": 8,
+        "p": "<<0.001"
+      },
+      "delta": "\u22125.50 pp accuracy",
+      "result": "Naive concat significantly degrades \u2014 noisy CSI dims act as distractors."
+    },
+    {
+      "id": "stats_wifi_vs_raw_wifi_easy",
+      "comparison": "Stats WiFi MLP Easy vs Raw WiFi DeepConvLSTM Easy",
+      "test": "Welch t-test (n=5)",
+      "statistic": {
+        "t": -3.64,
+        "df": 6,
+        "p": 0.01
+      },
+      "delta": "\u22125.80 pp accuracy",
+      "result": "Significant; CSI summary stats falsified \u2014 do not extend to Hard."
+    },
+    {
+      "id": "imu_from_gmu_hard_paired",
+      "comparison": "IMU-from-GMU Hard vs Standalone IMU Hard (paired by seed)",
+      "test": "Paired t-test (n=5)",
+      "statistic": {
+        "t": 8.45,
+        "df": 4,
+        "p": 0.001
+      },
+      "delta": "\u221225.49 pp macro F1, \u221223.0 pp accuracy",
+      "result": "Highly significant. Co-training HURTS the IMU encoder."
+    },
+    {
+      "id": "imu_from_gmu_easy_paired",
+      "comparison": "IMU-from-GMU Easy vs Standalone IMU Easy (paired by seed)",
+      "test": "Paired t-test (n=5)",
+      "statistic": {
+        "t": 4.71,
+        "df": 4,
+        "p": 0.009
+      },
+      "delta": "\u221211.37 pp macro F1, \u22126.6 pp accuracy",
+      "result": "Significant. Damage smaller on Easy (Walking takes the hit; other classes intact)."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "experiment": "wifirb_amp_deepconvlstm_easy",
+  "mode": "held-out",
+  "test_subjects": [
+    4,
+    9,
+    13,
+    18
+  ],
+  "acc_mean": 0.4254364089775561,
+  "acc_std": 0.05026654533648401,
+  "f1_mean": 0.3952853695944895,
+  "f1_std": 0.06118505581248089
+}

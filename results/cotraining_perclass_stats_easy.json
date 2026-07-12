@@ -1,0 +1,21 @@
+{
+  "suffix": "easy",
+  "solo_exp": "audit_dropout_easy_imu",
+  "gmu_exp": "audit_dropout_easy_gmu",
+  "num_seeds": 5,
+  "macro_f1_solo_mean": 0.8565651262181314,
+  "macro_f1_solo_std": 0.03721661243430144,
+  "macro_f1_imu_from_gmu_mean": 0.7428659622799524,
+  "macro_f1_imu_from_gmu_std": 0.03516100002540533,
+  "mean_paired_drop": 0.11369916393817911,
+  "wilcoxon_statistic": 15.0,
+  "wilcoxon_p_one_sided": 0.03125,
+  "paired_t_statistic": 4.706986284298713,
+  "paired_t_p_two_sided": 0.009260331309062404,
+  "class_with_largest_drop": 1,
+  "largest_drop_value": 0.47686233964227726,
+  "class_with_smallest_drop": 0,
+  "smallest_drop_value": -0.018648904470948247,
+  "num_classes_with_drop_gt_0.10": 1,
+  "num_classes_improved_by_gmu": 1
+}

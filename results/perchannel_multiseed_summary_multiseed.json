@@ -1,0 +1,87 @@
+{
+  "experiment": "audit_dropout_gmu_perchannel",
+  "num_seeds": 5,
+  "gate_dim": 64,
+  "threshold": 0.3,
+  "category_counts": {
+    "variance_router": {
+      "mean": 20.0,
+      "std": 19.196353820452465
+    },
+    "competence_router": {
+      "mean": 4.8,
+      "std": 6.457553716385176
+    },
+    "anti_variance": {
+      "mean": 8.2,
+      "std": 4.8166378315169185
+    },
+    "anti_competence": {
+      "mean": 3.6,
+      "std": 3.2093613071762426
+    },
+    "neutral": {
+      "mean": 33.2,
+      "std": 17.297398648351724
+    },
+    "structured": {
+      "mean": 29.4,
+      "std": 19.53970317072396
+    }
+  },
+  "cor_sigma_range_mean": {
+    "min": NaN,
+    "max": NaN
+  },
+  "cor_wifi_range_mean": {
+    "min": NaN,
+    "max": NaN
+  },
+  "per_seed_categories": [
+    {
+      "seed": 0,
+      "variance_router": 1,
+      "competence_router": 0,
+      "anti_variance": 2,
+      "anti_competence": 1,
+      "neutral": 54,
+      "structured": 3
+    },
+    {
+      "seed": 1,
+      "variance_router": 3,
+      "competence_router": 1,
+      "anti_variance": 14,
+      "anti_competence": 5,
+      "neutral": 46,
+      "structured": 18
+    },
+    {
+      "seed": 2,
+      "variance_router": 42,
+      "competence_router": 4,
+      "anti_variance": 6,
+      "anti_competence": 8,
+      "neutral": 14,
+      "structured": 50
+    },
+    {
+      "seed": 3,
+      "variance_router": 16,
+      "competence_router": 3,
+      "anti_variance": 12,
+      "anti_competence": 0,
+      "neutral": 34,
+      "structured": 30
+    },
+    {
+      "seed": 4,
+      "variance_router": 38,
+      "competence_router": 16,
+      "anti_variance": 7,
+      "anti_competence": 4,
+      "neutral": 18,
+      "structured": 46
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+experiment: audit_dropout_gmu_moddrop
+
+# Hard 27-class scalar GMU at audit dropout, plus training-time modality
+# dropout (Track 2A). With probability moddrop_p, one modality (uniformly
+# chosen) is zeroed in each training batch. Forces the network to maintain
+# usable representations under either-modality-missing conditions; in the
+# literature (Neverova 2016 ModDrop; Peng et al. T-PAMI 2024 OPM) this is the
+# canonical mitigation for "single modality dominance" / gate collapse.
+#
+# Tests three possible outcomes:
+#   1. Gate opens (mean_gate > 0.1 across classes) AND acc holds: the closed
+#      gate of vanilla GMU is an optimisation minimum, not a fundamental
+#      property; the gate can route WiFi information when forced to use it.
+#   2. Gate opens BUT acc drops: forcing modality use harms when one modality
+#      is genuinely uninformative. Confirms WiFi-is-uninformative on MASD.
+#   3. Gate stays closed: even under forced training-time modality use, the
+#      model converges to IMU-only at inference. Strongest version of the
+#      co-training-not-fusion narrative.
+#
+# track_gate enables per-epoch gate logging (Track 2B) on the same run so the
+# trajectory analysis can compare moddrop vs no-moddrop conditions directly.
+#
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: gmu_fusion
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  num_classes: 27
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5
+  lstm_dropout: 0.5
+  head_dropout: 0.5
+  gate_dim: 1
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10
+  moddrop_p: 0.3
+  track_gate: true

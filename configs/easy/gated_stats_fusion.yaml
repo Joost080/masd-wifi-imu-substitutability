@@ -1,0 +1,39 @@
+experiment: gated_stats_fusion_easy
+
+# GMU-style gated fusion of IMU stats (54-D) + WiFi CSI stats (33-D).
+# Each modality is linearly projected to embed_dim=64, then the existing
+# GatedMultimodalUnit interpolates between the two. Convention matches
+# the raw-modality GMU work: gate near 1 -> WiFi, gate near 0 -> IMU.
+#
+# Compares against:
+#   - stats_imu_only_easy   (0.9356 ± 0.0120, IMU stats alone)
+#   - stats_imu_wifi_easy   (0.8806 ± 0.0094, naive concat fusion -- hurts)
+# Test: does gating recover IMU-stats performance by closing on WiFi,
+# the way the raw-modality GMU gates closed on WiFi under audit dropout?
+#
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: imu_wifi_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: gated_stats_fusion
+  imu_features: 54
+  wifi_features: 33
+  embed_dim: 64
+  num_classes: 5
+  hidden: 128
+  dropout: 0.5
+  gate_dim: 1   # scalar gate; matches the canonical GMU formulation
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

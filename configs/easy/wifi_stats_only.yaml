@@ -1,0 +1,29 @@
+experiment: stats_wifi_only_easy
+
+# Variant B of the WiFi stats side-experiment, Easy 5-class subset.
+# Small MLP on 33 hand-crafted CSI features (5 across-subcarrier aggregations
+# x 6 time-domain features + 3 global stats). Hyperparameters match the audit
+# dropout convention so results are directly comparable to audit_dropout_easy_wifi.
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: wifi_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: stats_mlp
+  in_features: 33
+  num_classes: 5
+  hidden: 128
+  dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

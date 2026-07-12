@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_gmu_perchannel",
+  "num_seeds": 5,
+  "acc_mean": 0.6746900826446282,
+  "acc_std": 0.03382258856292925,
+  "f1_mean": 0.6623915715228438,
+  "f1_std": 0.041370837752085166,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.6973140495867769,
+      "macro_f1": 0.6949644166561263,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.6420454545454546,
+      "macro_f1": 0.6220229236542033,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7086776859504132,
+      "macro_f1": 0.689340229089495,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.6348140495867769,
+      "macro_f1": 0.6125291612739622,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.690599173553719,
+      "macro_f1": 0.693101126940432,
+      "n_samples": 1936
+    }
+  ]
+}

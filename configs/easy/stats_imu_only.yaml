@@ -1,0 +1,29 @@
+experiment: stats_imu_only_easy
+
+# IMU stats baseline on the Easy 5-class subset.
+# Needed as the *single-modality* control for the stats-stats fusion experiment
+# (`stats_imu_wifi_easy`). The 27-class IMU-stats result is already known
+# (stats_imu_only, 0.7500 ± 0.0137); this config gives the Easy comparator.
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: imu_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: stats_mlp
+  in_features: 54
+  num_classes: 5
+  hidden: 128
+  dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

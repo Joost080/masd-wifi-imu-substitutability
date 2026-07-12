@@ -1,0 +1,29 @@
+experiment: audit_wifi_resnet_easy
+
+# Easy 5-class WiFi-only baseline using a CSI-native ResNet-1D backbone.
+# Direct comparison to SKELAR ResNet WiFi-Easy (0.5505, single seed) and to
+# our DeepConvLSTM WiFi-Easy audit (0.328 ± 0.031 multi-seed). If our ResNet
+# lands near 0.55 it closes the gap with SKELAR (modality is weak, backbone
+# matters); if it stays near 0.33 the modality is the dominant bottleneck.
+
+data:
+  modality: wifi_resnet
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: resnet1d
+  in_channels: 224
+  num_classes: 5
+  stem_channels: 64
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

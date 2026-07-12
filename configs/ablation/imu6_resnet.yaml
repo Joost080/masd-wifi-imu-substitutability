@@ -1,0 +1,27 @@
+experiment: ablation_imu6_resnet
+
+# §C: ResNet-1D on IMU-Hard, 6-axis acc+gyro input (matches the magnetometer
+# ablation). A SKELAR-comparable deep baseline that closes the "was DeepConvLSTM a
+# fair comparison?" question. We already have ResNet-1D on WiFi (audit_wifi_resnet);
+# this is the IMU counterpart. Audit head_dropout 0.5.
+
+data:
+  modality: imu6_resnet
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: resnet1d
+  in_channels: 6
+  num_classes: 27
+  stem_channels: 64
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

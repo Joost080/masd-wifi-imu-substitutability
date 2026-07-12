@@ -1,0 +1,30 @@
+experiment: ablation_imu6
+
+# §C magnetometer ablation (supervisor Results-(d), "6-axis IMU sufficient").
+# DeepConvLSTM on 6-axis acc+gyro (mag axes 6,7,8 dropped), native 150 timesteps,
+# audit dropout 0.5/0.5/0.5 so it pairs directly with the 9-axis audit_dropout_imu
+# (0.692). If 6-axis ~= 9-axis, a 6-axis IMU suffices -> cheaper edge deployment.
+
+data:
+  modality: imu6
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  in_channels: 6
+  num_classes: 27
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5
+  lstm_dropout: 0.5
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

@@ -1,0 +1,6 @@
+{
+  "seed": 3,
+  "weighted_accuracy": 0.5416666666666666,
+  "macro_f1": 0.485602609079897,
+  "n_samples": 360
+}

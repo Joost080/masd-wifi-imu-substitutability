@@ -1,0 +1,28 @@
+experiment: stats_imu_only
+
+# Variant B of the stats-features side-experiment.
+# Small MLP on 54 hand-crafted IMU features (mean, std, min, max, median, MAD
+# per axis, 9 axes). Hyperparameters match the audit-dropout convention
+# (0.5 dropout) so results are directly comparable to audit_dropout_imu.
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: imu_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: stats_mlp
+  in_features: 54
+  num_classes: 27
+  hidden: 128
+  dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

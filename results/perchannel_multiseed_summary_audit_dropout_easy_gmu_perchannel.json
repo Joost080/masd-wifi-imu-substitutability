@@ -1,0 +1,87 @@
+{
+  "experiment": "audit_dropout_gmu_perchannel",
+  "num_seeds": 5,
+  "gate_dim": 64,
+  "threshold": 0.3,
+  "category_counts": {
+    "variance_router": {
+      "mean": 20.8,
+      "std": 15.84929020492716
+    },
+    "competence_router": {
+      "mean": 1.8,
+      "std": 2.9495762407505253
+    },
+    "anti_variance": {
+      "mean": 8.6,
+      "std": 4.33589667773576
+    },
+    "anti_competence": {
+      "mean": 6.8,
+      "std": 7.19027120489902
+    },
+    "neutral": {
+      "mean": 30.8,
+      "std": 18.793615937333612
+    },
+    "structured": {
+      "mean": 33.2,
+      "std": 18.793615937333612
+    }
+  },
+  "cor_sigma_range_mean": {
+    "min": -0.5335298516132642,
+    "max": 0.60391406335351
+  },
+  "cor_wifi_range_mean": {
+    "min": -0.3807680516773533,
+    "max": 0.3294182038331012
+  },
+  "per_seed_categories": [
+    {
+      "seed": 0,
+      "variance_router": 8,
+      "competence_router": 7,
+      "anti_variance": 14,
+      "anti_competence": 1,
+      "neutral": 34,
+      "structured": 30
+    },
+    {
+      "seed": 1,
+      "variance_router": 32,
+      "competence_router": 0,
+      "anti_variance": 10,
+      "anti_competence": 14,
+      "neutral": 16,
+      "structured": 48
+    },
+    {
+      "seed": 2,
+      "variance_router": 28,
+      "competence_router": 1,
+      "anti_variance": 9,
+      "anti_competence": 4,
+      "neutral": 24,
+      "structured": 40
+    },
+    {
+      "seed": 3,
+      "variance_router": 36,
+      "competence_router": 1,
+      "anti_variance": 8,
+      "anti_competence": 15,
+      "neutral": 18,
+      "structured": 46
+    },
+    {
+      "seed": 4,
+      "variance_router": 0,
+      "competence_router": 0,
+      "anti_variance": 2,
+      "anti_competence": 0,
+      "neutral": 62,
+      "structured": 2
+    }
+  ]
+}

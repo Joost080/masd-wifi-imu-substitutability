@@ -1,0 +1,29 @@
+experiment: ablation_imu6_easy
+
+# §C magnetometer ablation, Easy 5-class. DeepConvLSTM on 6-axis acc+gyro,
+# native 150, audit dropout. Pairs with the 9-axis audit_dropout_easy_imu (0.952).
+
+data:
+  modality: imu6
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  in_channels: 6
+  num_classes: 5
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5
+  lstm_dropout: 0.5
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

@@ -1,0 +1,6 @@
+{
+  "weighted_accuracy": 0.55,
+  "macro_f1": 0.5420311397999555,
+  "n_samples": 360,
+  "checkpoint": "experiments/rq5_easy_early_fusion/20260505_154444/best_model.pt"
+}

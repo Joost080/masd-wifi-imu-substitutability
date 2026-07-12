@@ -1,0 +1,39 @@
+{
+  "num_seeds": 5,
+  "acc_mean": 0.9527777777777777,
+  "acc_std": 0.016197088596792503,
+  "f1_mean": 0.952158285690669,
+  "f1_std": 0.0167087554757417,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9666666666666667,
+      "macro_f1": 0.9665384615384616,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9333333333333333,
+      "macro_f1": 0.9321217048121382,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9444444444444444,
+      "macro_f1": 0.9435888430673055,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.9722222222222222,
+      "macro_f1": 0.9721912189964934,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.9472222222222222,
+      "macro_f1": 0.9463512000389465,
+      "n_samples": 360
+    }
+  ]
+}

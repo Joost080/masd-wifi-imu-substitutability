@@ -1,0 +1,40 @@
+{
+  "experiment": "stats_imu_wifi",
+  "num_seeds": 5,
+  "acc_mean": 0.7163223140495868,
+  "acc_std": 0.0180245653185066,
+  "f1_mean": 0.7022918440290912,
+  "f1_std": 0.02012663922201965,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.6973140495867769,
+      "macro_f1": 0.681210969356933,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.7138429752066116,
+      "macro_f1": 0.7036706891750567,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7019628099173554,
+      "macro_f1": 0.6830328772839009,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.7277892561983471,
+      "macro_f1": 0.7170747619743081,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.7407024793388429,
+      "macro_f1": 0.726469922355257,
+      "n_samples": 1936
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "experiment": "ablation_imu6_easy",
+  "num_seeds": 5,
+  "acc_mean": 0.943888888888889,
+  "acc_std": 0.010092167846991651,
+  "f1_mean": 0.9427181108262817,
+  "f1_std": 0.010640227891585885,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9388888888888889,
+      "macro_f1": 0.9374509803921569,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9388888888888889,
+      "macro_f1": 0.9374509803921569,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9361111111111111,
+      "macro_f1": 0.9344439530198045,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.9611111111111111,
+      "macro_f1": 0.9608410493827162,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.9444444444444444,
+      "macro_f1": 0.9434035909445745,
+      "n_samples": 360
+    }
+  ]
+}

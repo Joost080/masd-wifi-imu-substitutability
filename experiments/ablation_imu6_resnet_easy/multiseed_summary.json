@@ -1,0 +1,40 @@
+{
+  "experiment": "ablation_imu6_resnet_easy",
+  "num_seeds": 5,
+  "acc_mean": 0.9400000000000001,
+  "acc_std": 0.019895560643855534,
+  "f1_mean": 0.9388193670680105,
+  "f1_std": 0.020801717163065274,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9194444444444444,
+      "macro_f1": 0.9181487330622463,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9277777777777778,
+      "macro_f1": 0.9252453832430646,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9694444444444444,
+      "macro_f1": 0.9695730102671754,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.9333333333333333,
+      "macro_f1": 0.9314150571541191,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.95,
+      "macro_f1": 0.9497146516134467,
+      "n_samples": 360
+    }
+  ]
+}

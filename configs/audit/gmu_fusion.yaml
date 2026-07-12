@@ -1,0 +1,31 @@
+experiment: audit_dropout_gmu
+
+# Sanity-check rerun of 27-class scalar GMU with Ordoñez & Roggen 2016 dropout
+# (0.5 / 0.5 / 0.5) instead of the 0.1 / 0.0 / 0.5 used in rq3_gmu_fusion.
+# Used to test whether the variance-router gate pattern (cor(gate, IMU-sigma)
+# = -0.576 in the original run) is a genuine learned mechanism or an artefact
+# of training without LSTM dropout.
+
+data:
+  modality: gmu_fusion
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  num_classes: 27
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5   # was 0.1
+  lstm_dropout: 0.5   # was 0.0 — Ordoñez 2016 uses 0.5
+  head_dropout: 0.5
+  gate_dim: 1   # scalar gate (matches rq3_gmu_fusion for direct comparison)
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

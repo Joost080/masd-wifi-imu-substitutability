@@ -1,0 +1,27 @@
+experiment: rq5_easy_wifi
+
+data:
+  modality: wifi
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  # MASD Easy subset: standing, walking, jumping, sitting, lying.
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  in_channels: 224
+  num_classes: 5
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.1
+  lstm_dropout: 0.0
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

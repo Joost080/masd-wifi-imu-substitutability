@@ -1,0 +1,16 @@
+# Data (MASD is not redistributed; see README)
+data/
+raw_cache/
+
+# Model checkpoints (metrics are committed, weights are not)
+*.pt
+
+# Generated figures (rebuild with make_figs.py)
+figures/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/

@@ -1,0 +1,40 @@
+{
+  "experiment": "gated_stats_fusion",
+  "num_seeds": 5,
+  "acc_mean": 0.7145661157024794,
+  "acc_std": 0.012394541824163613,
+  "f1_mean": 0.6949766866730738,
+  "f1_std": 0.014192835217097124,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.7334710743801653,
+      "macro_f1": 0.7179274685864796,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.702995867768595,
+      "macro_f1": 0.685289044571062,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7045454545454546,
+      "macro_f1": 0.6816883366022921,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.7128099173553719,
+      "macro_f1": 0.6929184319954567,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.71900826446281,
+      "macro_f1": 0.6970601516100781,
+      "n_samples": 1936
+    }
+  ]
+}

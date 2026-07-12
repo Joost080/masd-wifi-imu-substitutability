@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_easy_wifi",
+  "num_seeds": 5,
+  "acc_mean": 0.3416666666666667,
+  "acc_std": 0.08968824606090521,
+  "f1_mean": 0.3038465597312041,
+  "f1_std": 0.08516796100811744,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.42777777777777776,
+      "macro_f1": 0.3831463439400399,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.36666666666666664,
+      "macro_f1": 0.32283778814234043,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.25833333333333336,
+      "macro_f1": 0.24531198496578951,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.41944444444444445,
+      "macro_f1": 0.3792275140592593,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.2361111111111111,
+      "macro_f1": 0.18870916754859157,
+      "n_samples": 360
+    }
+  ]
+}

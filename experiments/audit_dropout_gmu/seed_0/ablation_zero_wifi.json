@@ -1,0 +1,24 @@
+{
+  "checkpoint": "experiments/audit_dropout_gmu/seed_0/best_model.pt",
+  "config": "configs/audit/gmu_fusion.yaml",
+  "num_classes": 27,
+  "class_filter": null,
+  "noise_seed": 0,
+  "baseline": {
+    "weighted_accuracy": 0.6993801652892562,
+    "macro_f1": 0.6832312972125636,
+    "n": 1936
+  },
+  "zero_wifi": {
+    "weighted_accuracy": 0.6714876033057852,
+    "macro_f1": 0.6504955207569246,
+    "n": 1936
+  },
+  "noise_wifi": {
+    "weighted_accuracy": 0.6993801652892562,
+    "macro_f1": 0.6832312972125636,
+    "n": 1936
+  },
+  "delta_zero_minus_baseline": -0.02789256198347101,
+  "delta_noise_minus_baseline": 0.0
+}

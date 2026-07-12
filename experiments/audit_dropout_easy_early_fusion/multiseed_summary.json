@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_easy_early_fusion",
+  "num_seeds": 5,
+  "acc_mean": 0.881111111111111,
+  "acc_std": 0.02091650066335187,
+  "f1_mean": 0.8731686809499694,
+  "f1_std": 0.024210207912682365,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.8944444444444445,
+      "macro_f1": 0.8901426024955438,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.8694444444444445,
+      "macro_f1": 0.863974184594032,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9111111111111111,
+      "macro_f1": 0.9058425420494386,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.8611111111111112,
+      "macro_f1": 0.8463819879624284,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.8694444444444445,
+      "macro_f1": 0.8595020876484043,
+      "n_samples": 360
+    }
+  ]
+}

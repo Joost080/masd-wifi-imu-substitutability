@@ -1,0 +1,7 @@
+category,mean,std,per_seed
+variance_router,20.00,19.20,"1,3,42,16,38"
+competence_router,4.80,6.46,"0,1,4,3,16"
+anti_variance,8.20,4.82,"2,14,6,12,7"
+anti_competence,3.60,3.21,"1,5,8,0,4"
+neutral,33.20,17.30,"54,46,14,34,18"
+structured,29.40,19.54,"3,18,50,30,46"

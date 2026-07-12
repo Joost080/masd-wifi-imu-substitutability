@@ -1,0 +1,30 @@
+experiment: gated_stats_fusion
+
+# 27-class GMU-style gated stats fusion. Run after the Easy result lands, if
+# the gate behavior is interesting enough to warrant a Hard-set replication.
+#
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: imu_wifi_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: gated_stats_fusion
+  imu_features: 54
+  wifi_features: 33
+  embed_dim: 64
+  num_classes: 27
+  hidden: 128
+  dropout: 0.5
+  gate_dim: 1
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

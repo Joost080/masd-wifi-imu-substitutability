@@ -1,0 +1,40 @@
+{
+  "experiment": "gated_stats_fusion_easy",
+  "num_seeds": 5,
+  "acc_mean": 0.9411111111111111,
+  "acc_std": 0.013234588055079564,
+  "f1_mean": 0.9413934825696746,
+  "f1_std": 0.013076695796601227,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9305555555555556,
+      "macro_f1": 0.9307062071242894,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9333333333333333,
+      "macro_f1": 0.9339812956834234,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9305555555555556,
+      "macro_f1": 0.9309819601123328,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.9555555555555556,
+      "macro_f1": 0.9556913674560732,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.9555555555555556,
+      "macro_f1": 0.9556065824722542,
+      "n_samples": 360
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "experiment": "ablation_wifi2d_hard",
+  "num_seeds": 5,
+  "acc_mean": 0.10454545454545454,
+  "acc_std": 0.007753097452937517,
+  "f1_mean": 0.07384902941748023,
+  "f1_std": 0.00902834116896143,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.09400826446280992,
+      "macro_f1": 0.06305565731206347,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.11363636363636363,
+      "macro_f1": 0.08625566129094436,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.10640495867768596,
+      "macro_f1": 0.07504094762747571,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.0996900826446281,
+      "macro_f1": 0.06743309820797136,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.10898760330578512,
+      "macro_f1": 0.07745978264894621,
+      "n_samples": 1936
+    }
+  ]
+}

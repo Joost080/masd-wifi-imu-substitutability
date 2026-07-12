@@ -1,0 +1,34 @@
+experiment: audit_dropout_gmu_trajectory
+
+# Re-run of audit_dropout_gmu (Hard 27-class scalar GMU, audit dropout) with
+# epoch-by-epoch gate logging enabled. Deterministic seed protocol matches the
+# original: under the same seeds the trained models should reproduce the same
+# multi-seed numbers (0.717 ± 0.033). This experiment exists purely to add
+# the gate_trajectory.csv file per seed for the Track 2B trajectory analysis.
+#
+# Side-experiment: NOT in proposal. Logged in experiment_log.md.
+
+data:
+  modality: gmu_fusion
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  num_classes: 27
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5
+  lstm_dropout: 0.5
+  head_dropout: 0.5
+  gate_dim: 1
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10
+  track_gate: true

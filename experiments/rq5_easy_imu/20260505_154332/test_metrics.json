@@ -1,0 +1,6 @@
+{
+  "weighted_accuracy": 0.8694444444444445,
+  "macro_f1": 0.8558378229423347,
+  "n_samples": 360,
+  "checkpoint": "experiments/rq5_easy_imu/20260505_154332/best_model.pt"
+}

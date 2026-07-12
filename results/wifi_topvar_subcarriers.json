@@ -1,0 +1,23 @@
+{
+  "k": 5,
+  "sample_size": 1500,
+  "seed": 42,
+  "metric": "mean within-window temporal variance over training set",
+  "top_indices": [
+    20,
+    16,
+    24,
+    12,
+    32
+  ],
+  "variances_top": [
+    40096.32883457767,
+    39779.638783700495,
+    38109.6409630757,
+    37559.069686047565,
+    37435.91804323146
+  ],
+  "all_variance_min": 1080.8045319364967,
+  "all_variance_max": 40096.32883457767,
+  "all_variance_median": 6119.620274253208
+}

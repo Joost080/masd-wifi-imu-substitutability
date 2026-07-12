@@ -1,0 +1,31 @@
+experiment: audit_dropout_gmu_perchannel
+
+# Audit per-channel GMU (gate_dim=64) on 27-class at Ordoñez dropout 0.5/0.5/0.5.
+# The previous diagnostic_perchannel.py result on rq5_gmu_perchannel showed
+# heterogeneous per-channel routing (16 variance-routers, 7 competence-routers,
+# 35 neutral). That run was at dropout 0.1/0.0/0.5; we need to verify the
+# per-channel structure survives proper regularisation.
+
+data:
+  modality: gmu_fusion
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  num_classes: 27
+  conv_channels: 64
+  conv_kernel: 5
+  lstm_hidden: 128
+  conv_dropout: 0.5
+  lstm_dropout: 0.5
+  head_dropout: 0.5
+  gate_dim: 64
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

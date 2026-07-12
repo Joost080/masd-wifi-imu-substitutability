@@ -1,0 +1,40 @@
+{
+  "experiment": "rq2_imu_corrected",
+  "num_seeds": 5,
+  "acc_mean": 0.7336776859504133,
+  "acc_std": 0.01170254390478053,
+  "f1_mean": 0.7233039123230118,
+  "f1_std": 0.011632998984707172,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.7272727272727273,
+      "macro_f1": 0.7154881202787223,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.7195247933884298,
+      "macro_f1": 0.7106690450817822,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7303719008264463,
+      "macro_f1": 0.7192498636237086,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.7432851239669421,
+      "macro_f1": 0.7341590336106322,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.7479338842975206,
+      "macro_f1": 0.7369534990202142,
+      "n_samples": 1936
+    }
+  ]
+}

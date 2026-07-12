@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_easy_imu",
+  "num_seeds": 5,
+  "acc_mean": 0.9516666666666665,
+  "acc_std": 0.023040490392586373,
+  "f1_mean": 0.9506790420055478,
+  "f1_std": 0.02392206785221585,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9861111111111112,
+      "macro_f1": 0.9861963920224666,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9638888888888889,
+      "macro_f1": 0.9636958929173287,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9361111111111111,
+      "macro_f1": 0.9347025167346021,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.9416666666666667,
+      "macro_f1": 0.9404371851924299,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.9305555555555556,
+      "macro_f1": 0.9283632231609109,
+      "n_samples": 360
+    }
+  ]
+}

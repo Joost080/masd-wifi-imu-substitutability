@@ -1,0 +1,26 @@
+experiment: ablation_wifi2d_hard
+
+# Matrix fill: 2D ResNet-style CNN on the CSI image, Hard 27-class. Completes the
+# architecture sweep -> "WiFi fails under every backbone, incl. the SOTA 2D-CNN,
+# even on Hard." Expected near chance (DeepConvLSTM 0.06, 1D-ResNet 0.09).
+
+data:
+  modality: wifi2d
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: csi_resnet2d
+  in_channels: 1
+  num_classes: 27
+  stem_channels: 32
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

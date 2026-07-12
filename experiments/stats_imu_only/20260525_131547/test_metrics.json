@@ -1,0 +1,6 @@
+{
+  "weighted_accuracy": 0.7644628099173554,
+  "macro_f1": 0.7522734419202186,
+  "n_samples": 1936,
+  "checkpoint": "experiments/stats_imu_only/20260525_131547/best_model.pt"
+}

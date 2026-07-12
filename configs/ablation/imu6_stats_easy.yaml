@@ -1,0 +1,26 @@
+experiment: ablation_imu6_stats_easy
+
+# §C magnetometer ablation, stats-MLP on 6-axis acc+gyro features, Easy 5-class.
+# Pairs with the 9-axis stats_imu_only_easy.
+
+data:
+  modality: imu6_stats
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: stats_mlp
+  in_features: 36
+  num_classes: 5
+  hidden: 128
+  dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

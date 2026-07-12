@@ -1,0 +1,6 @@
+{
+  "weighted_accuracy": 0.9222222222222223,
+  "macro_f1": 0.9188085823429443,
+  "n_samples": 360,
+  "checkpoint": "experiments/rq5_easy_gmu_fusion/20260505_154852/best_model.pt"
+}

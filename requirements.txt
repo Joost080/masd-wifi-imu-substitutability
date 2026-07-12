@@ -1,0 +1,18 @@
+# Torch pinned to CUDA 12.1 build because the cluster driver (NVIDIA 12.5)
+# is older than what the default torch wheels (cu126/cu130) require. Without
+# the +cu121 build PyTorch falls back to CPU and training is unusable. Install
+# with the PyTorch index:
+#   pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu121
+--extra-index-url https://download.pytorch.org/whl/cu121
+torch==2.5.1+cu121
+torchvision==0.20.1+cu121
+numpy
+scipy
+scikit-learn
+matplotlib
+seaborn
+pandas
+jupyter
+notebook
+pyyaml
+tqdm

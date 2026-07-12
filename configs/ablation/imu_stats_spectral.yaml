@@ -1,0 +1,27 @@
+experiment: ablation_imu_stats_spectral
+
+# Finding-3 deep dive: does adding frequency-domain features to the stats-MLP close
+# the locomotion deficit (esp. walking<->jumping confusion)? Time-domain (54) +
+# spectral (54) = 108 features. Compare per-class vs stats_imu_only (54, time-only)
+# and the conv-0.1 deep (rq2_imu_corrected). Audit dropout.
+
+data:
+  modality: imu_stats_spec
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: stats_mlp
+  in_features: 108
+  num_classes: 27
+  hidden: 128
+  dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

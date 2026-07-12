@@ -1,0 +1,32 @@
+experiment: audit_wifi_resnet
+
+# Hard 27-class WiFi-only baseline using a CSI-native ResNet-1D backbone.
+# Tests the proposal's "future work" question: is DeepConvLSTM the bottleneck
+# for WiFi (then ResNet should help) or is CSI intrinsically weak on 27-class
+# (then ResNet stays at floor too)? SKELAR reports their ResNet at 55% on Easy
+# only; they explicitly cannot solve 27-class with ResNet either.
+#
+# Audit-dropout convention (head_dropout=0.5 only; no LSTM in this model so
+# the LSTM-dropout debate is moot). Stays close to DeepConvLSTM training
+# hyperparams for a controlled comparison.
+
+data:
+  modality: wifi_resnet
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+
+model:
+  type: resnet1d
+  in_channels: 224
+  num_classes: 27
+  stem_channels: 64
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

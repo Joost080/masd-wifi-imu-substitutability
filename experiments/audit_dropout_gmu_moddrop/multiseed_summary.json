@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_gmu_moddrop",
+  "num_seeds": 5,
+  "acc_mean": 0.6864669421487605,
+  "acc_std": 0.02477185704190453,
+  "f1_mean": 0.6735135368586158,
+  "f1_std": 0.02730691557671284,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.7035123966942148,
+      "macro_f1": 0.6883639891194963,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.7081611570247934,
+      "macro_f1": 0.7021267258763878,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.6911157024793388,
+      "macro_f1": 0.6786309181584123,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.6456611570247934,
+      "macro_f1": 0.6300243984520156,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.6838842975206612,
+      "macro_f1": 0.6684216526867675,
+      "n_samples": 1936
+    }
+  ]
+}

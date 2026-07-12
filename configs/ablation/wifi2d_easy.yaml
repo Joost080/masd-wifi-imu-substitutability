@@ -1,0 +1,28 @@
+experiment: ablation_wifi2d_easy
+
+# §C (if time allows): 2D ResNet-style CNN treating the CSI window as a
+# (500 x 224) amplitude image, WiFi-Easy 5-class. First SOTA-architecture WiFi
+# baseline on MASD. Expected <= SKELAR's 55-66% Easy ceiling; closes the
+# architecture gap cleanly. stem_channels kept small (Easy train ~1.9k windows).
+
+data:
+  modality: wifi2d
+  batch_size: 32
+  val_split: 0.2
+  num_workers: 4
+  seed: 42
+  class_filter: [0, 1, 2, 3, 4]
+
+model:
+  type: csi_resnet2d
+  in_channels: 1
+  num_classes: 5
+  stem_channels: 32
+  head_dropout: 0.5
+
+training:
+  optimizer: adam
+  lr: 0.001
+  momentum: 0.9
+  epochs: 80
+  early_stop_patience: 10

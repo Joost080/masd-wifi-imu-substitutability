@@ -1,0 +1,14 @@
+{
+  "experiment": "wifirb_doppler_deepconvlstm",
+  "mode": "held-out",
+  "test_subjects": [
+    4,
+    9,
+    13,
+    18
+  ],
+  "acc_mean": 0.08418647166361974,
+  "acc_std": 0.01810760496936409,
+  "f1_mean": 0.0712424969537401,
+  "f1_std": 0.018191126289802538
+}

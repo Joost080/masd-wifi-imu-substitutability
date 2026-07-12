@@ -1,0 +1,40 @@
+{
+  "experiment": "rq5_easy_wifi",
+  "num_seeds": 5,
+  "acc_mean": 0.46777777777777774,
+  "acc_std": 0.07053586776935056,
+  "f1_mean": 0.4416727238977248,
+  "f1_std": 0.07656449550589146,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.4777777777777778,
+      "macro_f1": 0.43551091748383686,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.49166666666666664,
+      "macro_f1": 0.4828593949509236,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.5638888888888889,
+      "macro_f1": 0.5443435426869071,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.375,
+      "macro_f1": 0.34373166554025514,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.4305555555555556,
+      "macro_f1": 0.401918098826701,
+      "n_samples": 360
+    }
+  ]
+}

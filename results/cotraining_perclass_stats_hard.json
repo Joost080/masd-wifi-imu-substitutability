@@ -1,0 +1,21 @@
+{
+  "suffix": "hard",
+  "solo_exp": "audit_dropout_imu",
+  "gmu_exp": "audit_dropout_gmu",
+  "num_seeds": 5,
+  "macro_f1_solo_mean": 0.6916231355339064,
+  "macro_f1_solo_std": 0.059681062658115486,
+  "macro_f1_imu_from_gmu_mean": 0.43671617277512187,
+  "macro_f1_imu_from_gmu_std": 0.04076878071399748,
+  "mean_paired_drop": 0.25490696275878455,
+  "wilcoxon_statistic": 15.0,
+  "wilcoxon_p_one_sided": 0.03125,
+  "paired_t_statistic": 8.44818097876618,
+  "paired_t_p_two_sided": 0.0010754322398718306,
+  "class_with_largest_drop": 26,
+  "largest_drop_value": 0.6973033949749566,
+  "class_with_smallest_drop": 11,
+  "smallest_drop_value": -0.15897795712206986,
+  "num_classes_with_drop_gt_0.10": 19,
+  "num_classes_improved_by_gmu": 2
+}

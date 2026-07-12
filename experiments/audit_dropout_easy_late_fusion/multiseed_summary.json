@@ -1,0 +1,40 @@
+{
+  "experiment": "audit_dropout_easy_late_fusion",
+  "num_seeds": 5,
+  "acc_mean": 0.9166666666666667,
+  "acc_std": 0.03148828902431841,
+  "f1_mean": 0.9132233031201398,
+  "f1_std": 0.03358350571545112,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.9472222222222222,
+      "macro_f1": 0.9463512000389465,
+      "n_samples": 360
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.9166666666666666,
+      "macro_f1": 0.9118326118326119,
+      "n_samples": 360
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.9277777777777778,
+      "macro_f1": 0.925287356321839,
+      "n_samples": 360
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.8638888888888889,
+      "macro_f1": 0.857357991085463,
+      "n_samples": 360
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.9277777777777778,
+      "macro_f1": 0.925287356321839,
+      "n_samples": 360
+    }
+  ]
+}

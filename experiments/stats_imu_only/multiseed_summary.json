@@ -1,0 +1,40 @@
+{
+  "experiment": "stats_imu_only",
+  "num_seeds": 5,
+  "acc_mean": 0.7540289256198347,
+  "acc_std": 0.014043508651211933,
+  "f1_mean": 0.7392665533287863,
+  "f1_std": 0.017538172856891722,
+  "per_seed": [
+    {
+      "seed": 0,
+      "weighted_accuracy": 0.7784090909090909,
+      "macro_f1": 0.7691166130297623,
+      "n_samples": 1936
+    },
+    {
+      "seed": 1,
+      "weighted_accuracy": 0.7505165289256198,
+      "macro_f1": 0.7364821912719955,
+      "n_samples": 1936
+    },
+    {
+      "seed": 2,
+      "weighted_accuracy": 0.7505165289256198,
+      "macro_f1": 0.7367017968225125,
+      "n_samples": 1936
+    },
+    {
+      "seed": 3,
+      "weighted_accuracy": 0.7422520661157025,
+      "macro_f1": 0.7234915077386725,
+      "n_samples": 1936
+    },
+    {
+      "seed": 4,
+      "weighted_accuracy": 0.7484504132231405,
+      "macro_f1": 0.7305406577809881,
+      "n_samples": 1936
+    }
+  ]
+}
